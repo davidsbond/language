@@ -17,12 +17,6 @@ type (
 	}
 )
 
-// TokenLiteral returns the literal value of the token for this
-// expression
-func (ie *InfixExpression) TokenLiteral() string {
-	return ie.Token.Literal
-}
-
 func (ie *InfixExpression) String() string {
 	var out bytes.Buffer
 

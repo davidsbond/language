@@ -16,12 +16,6 @@ type (
 	}
 )
 
-// TokenLiteral returns the literal value of the token for this
-// statement.
-func (bl *BooleanLiteral) TokenLiteral() string {
-	return bl.Token.Literal
-}
-
 func (bl *BooleanLiteral) String() string {
 	return strconv.FormatBool(bl.Value)
 }

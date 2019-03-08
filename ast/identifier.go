@@ -11,12 +11,6 @@ type (
 	}
 )
 
-// TokenLiteral returns the literal value of the token for this
-// statement.
-func (i *Identifier) TokenLiteral() string {
-	return i.Token.Literal
-}
-
 func (i *Identifier) String() string {
 	return i.Token.Literal
 }

@@ -7,15 +7,14 @@ import (
 )
 
 type (
+	// The ReturnStatement type represents a return statement in the abstract
+	// syntax tree. For example
+	// return 1 + 1
 	ReturnStatement struct {
 		Token       *token.Token
 		ReturnValue Node
 	}
 )
-
-func (rs *ReturnStatement) TokenLiteral() string {
-	return rs.Token.Literal
-}
 
 func (rs *ReturnStatement) String() string {
 	return fmt.Sprintf("return %s", rs.ReturnValue.String())

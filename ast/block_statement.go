@@ -7,6 +7,7 @@ import (
 )
 
 type (
+	// The BlockStatement type represents statements wrapped in braces.
 	BlockStatement struct {
 		Token      *token.Token
 		Statements []Node

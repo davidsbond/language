@@ -24,7 +24,6 @@ type (
 	// The Node interface defines methods used by types that can be found in
 	// the abstract syntax tree.
 	Node interface {
-		TokenLiteral() string
 		String() string
 	}
 )
@@ -38,9 +37,4 @@ func (ast *AST) String() string {
 	}
 
 	return builder.String()
-}
-
-// TokenLiteral returns blank for the AST. It's just to satisfy the interface.
-func (ast *AST) TokenLiteral() string {
-	return ""
 }

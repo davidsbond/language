@@ -19,12 +19,6 @@ type (
 	}
 )
 
-// TokenLiteral returns the literal value of the token for this
-// statement.
-func (vs *AtomicStatement) TokenLiteral() string {
-	return vs.Token.Literal
-}
-
 func (vs *AtomicStatement) String() string {
 	return fmt.Sprintf("atomic %s = %v", vs.Name.Value, vs.Value.String())
 }

@@ -13,12 +13,6 @@ type (
 	}
 )
 
-// TokenLiteral returns the literal value of the token for this
-// statement.
-func (es *ExpressionStatement) TokenLiteral() string {
-	return es.Token.Literal
-}
-
 func (es *ExpressionStatement) String() string {
 	return es.Expression.String()
 }

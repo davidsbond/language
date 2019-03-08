@@ -19,12 +19,6 @@ type (
 	}
 )
 
-// TokenLiteral returns the literal value of the token for this
-// statement.
-func (vs *VarStatement) TokenLiteral() string {
-	return vs.Token.Literal
-}
-
 func (vs *VarStatement) String() string {
 	return fmt.Sprintf("var %s = %v", vs.Name.Value, vs.Value.String())
 }

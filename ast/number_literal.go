@@ -13,12 +13,6 @@ type (
 	}
 )
 
-// TokenLiteral returns the literal value of the token for this
-// statement.
-func (nl *NumberLiteral) TokenLiteral() string {
-	return nl.Token.Literal
-}
-
 func (nl *NumberLiteral) String() string {
 	return nl.Token.Literal
 }

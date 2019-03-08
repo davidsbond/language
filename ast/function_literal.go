@@ -7,6 +7,9 @@ import (
 )
 
 type (
+	// The FunctionLiteral type represents a function declaration in the abstract
+	// syntax tree. For example:
+	// function add(a, b) { return a + b }
 	FunctionLiteral struct {
 		Token      *token.Token
 		Name       *Identifier
@@ -14,10 +17,6 @@ type (
 		Body       *BlockStatement
 	}
 )
-
-func (fl *FunctionLiteral) TokenLiteral() string {
-	return fl.Token.Literal
-}
 
 func (fl *FunctionLiteral) String() string {
 	var out strings.Builder
