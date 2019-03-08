@@ -57,6 +57,16 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 		tok = token.New(token.ASTERISK, token.ASTERISK, l.linePosition, l.position)
 	case '%':
 		tok = token.New(token.MOD, token.MOD, l.linePosition, l.position)
+	case '(':
+		tok = token.New(token.LPAREN, token.LPAREN, l.linePosition, l.position)
+	case ')':
+		tok = token.New(token.RPAREN, token.RPAREN, l.linePosition, l.position)
+	case ',':
+		tok = token.New(token.COMMA, token.COMMA, l.linePosition, l.position)
+	case '{':
+		tok = token.New(token.LBRACE, token.LBRACE, l.linePosition, l.position)
+	case '}':
+		tok = token.New(token.RBRACE, token.RBRACE, l.linePosition, l.position)
 	case '=':
 		var next rune
 

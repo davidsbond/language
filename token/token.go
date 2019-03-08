@@ -68,16 +68,35 @@ const (
 
 	// RETURN is the token type used for a return statement
 	RETURN = "return"
+
+	// FUNCTION is the token type used for a function statement
+	FUNCTION = "function"
+
+	// LPAREN is the token type used for a left-parenthesis symbol
+	LPAREN = "("
+
+	// RPAREN is the token type used for a right-parenthesis symbol
+	RPAREN = ")"
+
+	// COMMA is the token type used for ',' characters.
+	COMMA = ","
+
+	// LBRACE is the token type used for '{' characters
+	LBRACE = "{"
+
+	// RBRACE is the token type used for '}' characters
+	RBRACE = "}"
 )
 
 var (
 	keywords = map[string]Type{
-		"const":  CONST,
-		"var":    VAR,
-		"atomic": ATOMIC,
-		"true":   TRUE,
-		"false":  FALSE,
-		"return": RETURN,
+		"atomic":   ATOMIC,
+		"const":    CONST,
+		"function": FUNCTION,
+		"false":    FALSE,
+		"return":   RETURN,
+		"true":     TRUE,
+		"var":      VAR,
 	}
 )
 

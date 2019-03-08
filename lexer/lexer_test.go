@@ -188,6 +188,51 @@ func TestLexer_NextToken(t *testing.T) {
 			},
 		},
 		{
+			Expression: "{",
+			ExpectedToken: &token.Token{
+				Literal: "{",
+				Type:    token.LBRACE,
+				Line:    2,
+				Column:  0,
+			},
+		},
+		{
+			Expression: "}",
+			ExpectedToken: &token.Token{
+				Literal: "}",
+				Type:    token.RBRACE,
+				Line:    2,
+				Column:  0,
+			},
+		},
+		{
+			Expression: "(",
+			ExpectedToken: &token.Token{
+				Literal: "(",
+				Type:    token.LPAREN,
+				Line:    2,
+				Column:  0,
+			},
+		},
+		{
+			Expression: ")",
+			ExpectedToken: &token.Token{
+				Literal: ")",
+				Type:    token.RPAREN,
+				Line:    2,
+				Column:  0,
+			},
+		},
+		{
+			Expression: ",",
+			ExpectedToken: &token.Token{
+				Literal: ",",
+				Type:    token.COMMA,
+				Line:    2,
+				Column:  0,
+			},
+		},
+		{
 			Expression: "return",
 			ExpectedToken: &token.Token{
 				Literal: "return",
