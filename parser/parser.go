@@ -3,7 +3,6 @@
 package parser
 
 import (
-	"fmt"
 	"io"
 
 	"github.com/davidsbond/dave/ast"
@@ -54,7 +53,7 @@ type (
 		prefixParsers map[token.Type]prefixParseFn
 		infixParsers  map[token.Type]infixParseFn
 
-		Errors []error
+		errors []error
 	}
 
 	prefixParseFn func() ast.Node
@@ -96,7 +95,7 @@ func New(lexer *lexer.Lexer) (parser *Parser) {
 
 // Parse attempts to convert tokens provided by the underlying lexer into an instance
 // of ast.AST that can be evaluated.
-func (p *Parser) Parse() *ast.AST {
+func (p *Parser) Parse() (*ast.AST, []error) {
 	ast := &ast.AST{}
 
 	// While we're not at the end of the file, parse
@@ -116,7 +115,7 @@ func (p *Parser) Parse() *ast.AST {
 		p.nextToken()
 	}
 
-	return ast
+	return ast, p.errors
 }
 
 func (p *Parser) parseStatement() ast.Node {
@@ -139,7 +138,8 @@ func (p *Parser) parseExpression(precedence int) ast.Node {
 
 	// If not, return an error
 	if !ok {
-		panic("no prefix parser")
+		p.error("%s is not supported as a prefix", p.currentToken.Literal)
+		return nil
 	}
 
 	// Otherwise, parse the LHS of the expression
@@ -179,7 +179,7 @@ func (p *Parser) nextToken() {
 	p.peekToken, err = p.lexer.NextToken()
 
 	if err != nil && err != io.EOF {
-		p.Errors = append(p.Errors, err)
+		p.errors = append(p.errors, err)
 	}
 }
 
@@ -213,11 +213,6 @@ func (p *Parser) expectPeek(t token.Type) bool {
 		return true
 	}
 
-	p.peekError(t)
+	p.error("expected token %s, got %s instead", t, p.currentToken.Type)
 	return false
-}
-
-func (p *Parser) peekError(t token.Type) {
-	err := fmt.Errorf("expected next token to be %s, got %s instead", t, p.peekToken.Type)
-	p.Errors = append(p.Errors, err)
 }

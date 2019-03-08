@@ -141,7 +141,7 @@ func TestParser_InfixExpression(t *testing.T) {
 			lex, _ := lexer.New(rd)
 			parser := parser.New(lex)
 
-			result := parser.Parse()
+			result, _ := parser.Parse()
 
 			assert.Len(t, result.Nodes, 1)
 

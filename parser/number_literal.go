@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"fmt"
 	"strconv"
 
 	"github.com/davidsbond/dave/ast"
@@ -13,8 +12,7 @@ func (p *Parser) parseNumberLiteral() ast.Node {
 	value, err := strconv.ParseFloat(p.currentToken.Literal, 64)
 
 	if err != nil {
-		msg := fmt.Errorf("could not parse %q as number", p.currentToken.Literal)
-		p.Errors = append(p.Errors, msg)
+		p.error(err.Error())
 		return nil
 	}
 

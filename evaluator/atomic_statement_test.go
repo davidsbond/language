@@ -46,7 +46,7 @@ func TestEvaluator_AtomicStatement(t *testing.T) {
 			rd := bufio.NewReader(strings.NewReader(tc.Expression))
 			lex, _ := lexer.New(rd)
 			parser := parser.New(lex)
-			ast := parser.Parse()
+			ast, _ := parser.Parse()
 
 			scope := object.NewScope()
 			evaluator.Evaluate(ast, scope)

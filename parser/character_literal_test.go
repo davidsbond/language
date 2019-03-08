@@ -36,7 +36,7 @@ func TestParser_CharacterLiteral(t *testing.T) {
 			rd := bufio.NewReader(strings.NewReader(tc.Expression))
 			lex, _ := lexer.New(rd)
 			parser := parser.New(lex)
-			result := parser.Parse()
+			result, _ := parser.Parse()
 		
 			assert.Len(t, result.Nodes, 1)
 			

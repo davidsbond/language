@@ -21,7 +21,7 @@ func TestEvaluator_Evaluate(t *testing.T) {
 	rd := bufio.NewReader(strings.NewReader(code))
 	lex, _ := lexer.New(rd)
 	parser := parser.New(lex)
-	ast := parser.Parse()
+	ast, _ := parser.Parse()
 
 	scope := object.NewScope()
 	evaluator.Evaluate(ast, scope)
