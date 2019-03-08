@@ -38,7 +38,7 @@ func (s *Scope) Set(name string, val Object) Object {
 
 	switch object := obj.(type) {
 	case *Constant:
-		panic("can't change a constant")
+		return Error("constant %s cannot be redefined", name)
 	case *Atomic:
 		object.Set(val)
 	}

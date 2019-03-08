@@ -17,11 +17,16 @@ func TestEvaluator_Evaluate(t *testing.T) {
 	atomic b = "test" + a
 	var c = "test" + b
 
-	return b
-
-	function add(a, b) {
+	func add(a, b) {
 		return a + b
 	}
+
+	var sub = func(a, b) {
+		return a - b
+	}
+
+	const added = add(1, 2)
+	const subbed = sub(2, 1)
 	`
 
 	rd := bufio.NewReader(strings.NewReader(code))
