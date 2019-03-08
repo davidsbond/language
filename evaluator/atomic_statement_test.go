@@ -42,7 +42,7 @@ func TestEvaluator_AtomicStatement(t *testing.T) {
 
 		{
 			Name:           "It should evaluate atomic character declarations",
-			Expression:     "var test = 'a'",
+			Expression:     "atomic test = 'a'",
 			ExpectedKey:    "test",
 			ExpectedObject: object.MakeAtomic(&object.Character{Value: 'a'}),
 		},

@@ -1,7 +1,13 @@
 package object
 
 import (
+	"fmt"
 	"sync"
+)
+
+const (
+	// TypeAtomic is the type wrapper for atomic types.
+	TypeAtomic = "Atomic<%s>"
 )
 
 type (
@@ -10,7 +16,7 @@ type (
 	// that use a mutex.
 	Atomic struct {
 		value Object
-		mutex sync.Mutex
+		mutex sync.RWMutex
 	}
 )
 
@@ -18,7 +24,7 @@ type (
 func MakeAtomic(obj Object) *Atomic {
 	return &Atomic{
 		value: obj,
-		mutex: sync.Mutex{},
+		mutex: sync.RWMutex{},
 	}
 }
 
@@ -27,13 +33,13 @@ func (at *Atomic) Type() Type {
 	at.mutex.Lock()
 	defer at.mutex.Unlock()
 
-	return at.value.Type()
+	return Type(fmt.Sprintf(TypeAtomic, at.value.Type()))
 }
 
 // Set sets the atomic value
 func (at *Atomic) Set(obj Object) {
-	at.mutex.Lock()
-	defer at.mutex.Unlock()
+	at.mutex.RLock()
+	defer at.mutex.RUnlock()
 
 	at.value = obj
 }
@@ -49,6 +55,9 @@ func (at *Atomic) Value() Object {
 // Clone creates a copy of the current object that can be used
 // without modifying the original value
 func (at *Atomic) Clone() Object {
+	at.mutex.Lock()
+	defer at.mutex.Unlock()
+
 	return at.value.Clone()
 }
 
