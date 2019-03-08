@@ -175,16 +175,8 @@ func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
 func (p *Parser) nextToken() {
 	var err error
 
-	fmt.Println("=== NEXT TOKEN ===")
-
 	p.currentToken = p.peekToken
 	p.peekToken, err = p.lexer.NextToken()
-
-	fmt.Printf("CURRENT: ")
-	fmt.Println(p.currentToken)
-
-	fmt.Printf("NEXT: ")
-	fmt.Println(p.peekToken)
 
 	if err != nil && err != io.EOF {
 		p.Errors = append(p.Errors, err)

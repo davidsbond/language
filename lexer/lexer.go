@@ -38,9 +38,7 @@ func New(input *bufio.Reader) (lex *Lexer, err error) {
 // NextToken converts the next set of lexemes in the source code to a token. Returns an error
 // for invalid characters or if reading the source code fails.
 func (l *Lexer) NextToken() (tok *token.Token, err error) {
-	if err = l.skipWhitespace(); err != nil {
-		return
-	}
+	l.skipWhitespace()
 
 	switch l.current {
 	case 0:
