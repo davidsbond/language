@@ -39,6 +39,12 @@ func TestEvaluator_VarStatement(t *testing.T) {
 			ExpectedKey:    "test",
 			ExpectedObject: &object.Boolean{Value: true},
 		},
+		{
+			Name:           "It should evaluate variable character declarations",
+			Expression:     "var test = 'a'",
+			ExpectedKey:    "test",
+			ExpectedObject: &object.Character{Value: 'a'},
+		},
 	}
 
 	for _, tc := range tt {

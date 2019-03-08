@@ -51,6 +51,14 @@ func TestEvaluator_ConstStatement(t *testing.T) {
 				},
 			},
 		},
+		{
+			Name:        "It should evaluate constant character declarations",
+			Expression:  "var test = 'a'",
+			ExpectedKey: "test",
+			ExpectedObject: &object.Constant{
+				Value: &object.Character{Value: 'a'},
+			},
+		},
 	}
 
 	for _, tc := range tt {
