@@ -128,6 +128,8 @@ func (p *Parser) parseStatement() ast.Node {
 		return p.parseAtomicStatement()
 	case token.RETURN:
 		return p.parseReturnStatement()
+	case token.FUNCTION:
+		return p.parseFunctionLiteral()
 	default:
 		return p.parseExpressionStatement()
 	}
