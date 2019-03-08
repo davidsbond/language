@@ -18,6 +18,10 @@ func TestEvaluator_Evaluate(t *testing.T) {
 	var c = "test" + b
 
 	return b
+
+	function add(a, b) {
+		return a + b
+	}
 	`
 
 	rd := bufio.NewReader(strings.NewReader(code))
