@@ -131,6 +131,8 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 			// Read the number and produce the token
 			num, err = l.readNumber()
 			tok = token.New(num, token.NUMBER, l.linePosition, l.position)
+		} else {
+			err = l.error("unsupported character: %v", l.current)
 		}
 	}
 
