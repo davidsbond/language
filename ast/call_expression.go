@@ -7,6 +7,9 @@ import (
 )
 
 type (
+	// The CallExpression type represents a function call in the abstract syntax
+	// tree. For example:
+	// add(1, 2)
 	CallExpression struct {
 		Token     *token.Token
 		Function  Node
