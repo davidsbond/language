@@ -5,6 +5,7 @@ package lexer
 import (
 	"bufio"
 	"io"
+	"strings"
 
 	"github.com/davidsbond/dave/token"
 )
@@ -176,15 +177,23 @@ func (l *Lexer) peekRune() (ch rune, err error) {
 }
 
 func (l *Lexer) readIdentifier() (ident string, err error) {
-	var result []rune
+	var out strings.Builder
 
-	for isLetter(l.current) && err == nil {
-		result = append(result, l.current)
+	for err == nil {
+		var next rune
 
-		err = l.readRune()
+		out.WriteRune(l.current)
+
+		next, err = l.peekRune()
+
+		if isLetter(next) {
+			err = l.readRune()
+		} else {
+			break
+		}
 	}
 
-	ident = string(result)
+	ident = out.String()
 	return
 }
 
