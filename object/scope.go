@@ -17,6 +17,15 @@ func NewScope() *Scope {
 	}
 }
 
+// NewChildScope creates a new scope using the called scope as the
+// parent.
+func (s *Scope) NewChildScope() *Scope {
+	scp := NewScope()
+	scp.parent = s
+
+	return scp
+}
+
 // Set attempts to set a value in the current scope using the given
 // name.
 func (s *Scope) Set(name string, val Object) Object {
