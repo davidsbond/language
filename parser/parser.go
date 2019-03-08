@@ -72,12 +72,13 @@ func New(lexer *lexer.Lexer) (parser *Parser) {
 	}
 
 	parser.prefixParsers = map[token.Type]prefixParseFn{
-		token.NUMBER: parser.parseNumberLiteral,
-		token.STRING: parser.parseStringLiteral,
-		token.CHAR:   parser.parseCharacterLiteral,
-		token.TRUE:   parser.parseBooleanLiteral,
-		token.FALSE:  parser.parseBooleanLiteral,
-		token.IDENT:  parser.parseIdentifier,
+		token.NUMBER:   parser.parseNumberLiteral,
+		token.STRING:   parser.parseStringLiteral,
+		token.CHAR:     parser.parseCharacterLiteral,
+		token.TRUE:     parser.parseBooleanLiteral,
+		token.FALSE:    parser.parseBooleanLiteral,
+		token.IDENT:    parser.parseIdentifier,
+		token.FUNCTION: parser.parseFunctionLiteral,
 	}
 
 	parser.infixParsers = map[token.Type]infixParseFn{
@@ -106,11 +107,6 @@ func (p *Parser) Parse() (*ast.AST, []error) {
 	// While we're not at the end of the file, parse
 	// statements and append them to the AST.
 	for !p.curTokenIs(token.EOF) {
-		if p.curTokenIs(token.NEWLINE) {
-			p.nextToken()
-			continue
-		}
-
 		stmt := p.parseStatement()
 
 		if stmt != nil {
