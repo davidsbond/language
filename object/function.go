@@ -7,10 +7,13 @@ import (
 )
 
 const (
+	// TypeFunction is the type for a function value
 	TypeFunction = "Function"
 )
 
 type (
+	// The Function type represents a function definition in memory that can be
+	// called/executed.
 	Function struct {
 		Name       *ast.Identifier
 		Parameters []*ast.Identifier
@@ -19,10 +22,13 @@ type (
 	}
 )
 
+// Type returns the type of the object.
 func (fn *Function) Type() Type {
 	return TypeFunction
 }
 
+// Clone creates a copy of the current object that can be used
+// without modifying the original value
 func (fn *Function) Clone() Object {
 	return &Function{
 		Name:       fn.Name,

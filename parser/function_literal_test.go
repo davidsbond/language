@@ -23,7 +23,7 @@ func TestParser_FunctionLiteral(t *testing.T) {
 		{
 			Name: "It should parse a valid function literal",
 			Expression: `
-			function add(a, b) {
+			func add(a, b) {
 				return a + b
 			}`,
 			ExpectedLiteral: &ast.FunctionLiteral{

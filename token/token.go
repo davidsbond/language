@@ -70,7 +70,7 @@ const (
 	RETURN = "return"
 
 	// FUNCTION is the token type used for a function statement
-	FUNCTION = "function"
+	FUNCTION = "func"
 
 	// LPAREN is the token type used for a left-parenthesis symbol
 	LPAREN = "("
@@ -90,13 +90,13 @@ const (
 
 var (
 	keywords = map[string]Type{
-		"atomic":   ATOMIC,
-		"const":    CONST,
-		"function": FUNCTION,
-		"false":    FALSE,
-		"return":   RETURN,
-		"true":     TRUE,
-		"var":      VAR,
+		"atomic": ATOMIC,
+		"const":  CONST,
+		"func":   FUNCTION,
+		"false":  FALSE,
+		"return": RETURN,
+		"true":   TRUE,
+		"var":    VAR,
 	}
 )
 
