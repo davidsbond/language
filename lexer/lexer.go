@@ -198,15 +198,23 @@ func (l *Lexer) readIdentifier() (ident string, err error) {
 }
 
 func (l *Lexer) readNumber() (num string, err error) {
-	var result []rune
+	var out strings.Builder
 
-	for isDigit(l.current) && err == nil {
-		result = append(result, l.current)
+	for err == nil {
+		var next rune
 
-		err = l.readRune()
+		out.WriteRune(l.current)
+
+		next, err = l.peekRune()
+
+		if isDigit(next) {
+			err = l.readRune()
+		} else {
+			break
+		}
 	}
 
-	num = string(result)
+	num = out.String()
 	return
 }
 
