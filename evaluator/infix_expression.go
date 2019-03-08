@@ -8,11 +8,15 @@ import (
 func evaluateInfixExpression(node *ast.InfixExpression, scope *object.Scope) object.Object {
 	left := Evaluate(node.Left, scope)
 
-	// check err
+	if left.Type() == object.TypeError {
+		return left
+	}
 
 	right := Evaluate(node.Right, scope)
 
-	// check err
+	if right.Type() == object.TypeError {
+		return right
+	}
 
 	switch {
 	case left.Type() == object.TypeNumber && right.Type() == object.TypeNumber:
@@ -21,7 +25,7 @@ func evaluateInfixExpression(node *ast.InfixExpression, scope *object.Scope) obj
 		return evaluateStringInfixExpression(node.Operator, left, right)
 	case left.Type() == object.TypeCharacter && right.Type() == object.TypeCharacter:
 		return evaluateCharacterInfixExpression(node.Operator, left, right)
+	default:
+		return object.Error("types %s and %s do not support operator %s", left.Type(), right.Type(), node.Operator)
 	}
-
-	return nil
 }

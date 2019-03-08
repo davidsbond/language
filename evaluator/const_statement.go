@@ -8,9 +8,9 @@ import (
 func evaluateConstStatement(node *ast.ConstStatement, scope *object.Scope) object.Object {
 	val := Evaluate(node.Value, scope)
 
-	// if isError(val) {
-	// 	return val
-	// }
+	if isError(val) {
+		return val
+	}
 
 	scope.Set(node.Name.Value, &object.Constant{Value: val})
 	return nil

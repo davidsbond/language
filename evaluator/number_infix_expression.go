@@ -1,6 +1,7 @@
 package evaluator
 
 import (
+	"fmt"
 	"math"
 
 	"github.com/davidsbond/dave/object"
@@ -10,12 +11,21 @@ import (
 func evaluateNumberInfixExpression(operator string, left, right object.Object) object.Object {
 	// Get the *object.Number instances for both the left and right objects. Handle
 	// atomic/constants appropriately.
-	trueLeft := getNumberFromObject(left)
-	trueRight := getNumberFromObject(right)
+	trueLeft, err := getNumberFromObject(left)
+
+	if err != nil {
+		return object.Error(err.Error())
+	}
+
+	trueRight, err := getNumberFromObject(right)
+
+	if err != nil {
+		return object.Error(err.Error())
+	}
 
 	switch operator {
 	default:
-		return nil
+		return object.Error("type Number does not support operator %s", operator)
 	case token.PLUS:
 		return &object.Number{Value: trueLeft.Value + trueRight.Value}
 	case token.MINUS:
@@ -35,13 +45,17 @@ func evaluateNumberInfixExpression(operator string, left, right object.Object) o
 	}
 }
 
-func getNumberFromObject(obj object.Object) *object.Number {
+func getNumberFromObject(obj object.Object) (*object.Number, error) {
 	switch val := obj.(type) {
 	case *object.Constant:
-		return val.Value.(*object.Number)
+		return val.Value.(*object.Number), nil
 	case *object.Atomic:
-		return val.Value().(*object.Number)
+		return val.Value().(*object.Number), nil
+	case *object.Number:
+		return obj.(*object.Number), nil
+	case nil:
+		return nil, fmt.Errorf("cannot cast nil value")
 	default:
-		return obj.(*object.Number)
+		return nil, fmt.Errorf("cannot cast type %s to type Number", obj.Type())
 	}
 }

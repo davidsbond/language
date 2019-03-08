@@ -34,10 +34,11 @@ func Evaluate(node ast.Node, scope *object.Scope) object.Object {
 		return &object.Character{Value: node.Value}
 	case *ast.Identifier:
 		return scope.Get(node.Value)
-
+	case nil:
+		return object.Error("cannot evaluate nil node")
+	default:
+		return object.Error("unsupported node type %s", node.String())
 	}
-
-	return nil
 }
 
 func evaluateAST(ast *ast.AST, scope *object.Scope) object.Object {
@@ -46,6 +47,10 @@ func evaluateAST(ast *ast.AST, scope *object.Scope) object.Object {
 	for _, node := range ast.Nodes {
 		result = Evaluate(node, scope)
 
+		if result != nil && result.Type() == object.TypeError {
+			break
+		}
+
 		switch result := result.(type) {
 		case *object.ReturnValue:
 			return result.Value
@@ -53,4 +58,8 @@ func evaluateAST(ast *ast.AST, scope *object.Scope) object.Object {
 	}
 
 	return result
+}
+
+func isError(obj object.Object) bool {
+	return obj.Type() == object.TypeError
 }

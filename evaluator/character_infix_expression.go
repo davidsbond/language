@@ -13,7 +13,7 @@ func evaluateCharacterInfixExpression(operator string, left, right object.Object
 
 	switch operator {
 	default:
-		return nil
+		return object.Error("type %s does not support operator %s", trueLeft.Type(), operator)
 	case token.PLUS:
 		return &object.String{Value: string([]rune{trueLeft.Value, trueRight.Value})}
 	case token.MINUS:

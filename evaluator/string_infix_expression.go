@@ -1,6 +1,8 @@
 package evaluator
 
 import (
+	"fmt"
+
 	"github.com/davidsbond/dave/object"
 	"github.com/davidsbond/dave/token"
 )
@@ -8,8 +10,17 @@ import (
 func evaluateStringInfixExpression(operator string, left, right object.Object) object.Object {
 	// Get the *object.String instances for both the left and right objects. Handle
 	// atomic/constants appropriately.
-	trueLeft := getStringFromObject(left)
-	trueRight := getStringFromObject(right)
+	trueLeft, err := getStringFromObject(left)
+
+	if err != nil {
+		return object.Error(err.Error())
+	}
+
+	trueRight, err := getStringFromObject(right)
+
+	if err != nil {
+		return object.Error(err.Error())
+	}
 
 	switch operator {
 	default:
@@ -21,13 +32,17 @@ func evaluateStringInfixExpression(operator string, left, right object.Object) o
 	}
 }
 
-func getStringFromObject(obj object.Object) *object.String {
+func getStringFromObject(obj object.Object) (*object.String, error) {
 	switch val := obj.(type) {
 	case *object.Constant:
-		return val.Value.(*object.String)
+		return val.Value.(*object.String), nil
 	case *object.Atomic:
-		return val.Value().(*object.String)
+		return val.Value().(*object.String), nil
+	case *object.String:
+		return obj.(*object.String), nil
+	case nil:
+		return nil, fmt.Errorf("cannot cast nil value")
 	default:
-		return obj.(*object.String)
+		return nil, fmt.Errorf("cannot cast type %s to type String", obj.Type())
 	}
 }

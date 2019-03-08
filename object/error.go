@@ -2,8 +2,6 @@ package object
 
 import (
 	"fmt"
-
-	"github.com/davidsbond/dave/token"
 )
 
 const (
@@ -23,11 +21,9 @@ type (
 // Error creates a new error in memory using the given token to note the line/column.
 // Standard library style message formatting can be used to create a formatted error
 // message.
-func Error(tok *token.Token, msg string, args ...interface{}) Object {
+func Error(msg string, args ...interface{}) Object {
 	return &err{
 		message: fmt.Sprintf(msg, args...),
-		line:    tok.Line,
-		column:  tok.Column,
 	}
 }
 
@@ -44,5 +40,5 @@ func (e *err) Clone() Object {
 }
 
 func (e *err) String() string {
-	return fmt.Sprintf("(%d:%d): %s", e.line, e.column, e.message)
+	return e.message
 }

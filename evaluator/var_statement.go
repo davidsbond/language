@@ -8,9 +8,9 @@ import (
 func evaluateVarStatement(node *ast.VarStatement, scope *object.Scope) object.Object {
 	val := Evaluate(node.Value, scope)
 
-	// if isError(val) {
-	// 	return val
-	// }
+	if isError(val) {
+		return val
+	}
 
 	scope.Set(node.Name.Value, val)
 	return nil
