@@ -63,9 +63,6 @@ const (
 	// FALSE is the token type used for a boolean 'false'
 	FALSE = "false"
 
-	// NEWLINE is the token type used for newline characters.
-	NEWLINE = "\n"
-
 	// RETURN is the token type used for a return statement
 	RETURN = "return"
 
