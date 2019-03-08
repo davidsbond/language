@@ -26,6 +26,9 @@ const (
 
 	// PRODUCT is the precedence level for '*' operators.
 	PRODUCT
+
+	// CALL is the precedence level for function calls.
+	CALL
 )
 
 var (
@@ -39,6 +42,7 @@ var (
 		token.ASTERISK: PRODUCT,
 		token.SLASH:    PRODUCT,
 		token.MOD:      PRODUCT,
+		token.LPAREN:   CALL,
 	}
 )
 
@@ -85,6 +89,7 @@ func New(lexer *lexer.Lexer) (parser *Parser) {
 		token.SLASH:    parser.parseInfixExpression,
 		token.MOD:      parser.parseInfixExpression,
 		token.EQUALS:   parser.parseInfixExpression,
+		token.LPAREN:   parser.parseCallExpression,
 	}
 
 	parser.nextToken()
@@ -174,6 +179,31 @@ func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
 		Token:      p.currentToken,
 		Expression: p.parseExpression(LOWEST),
 	}
+}
+
+func (p *Parser) parseExpressionList(end token.Type) []ast.Node {
+	var list []ast.Node
+
+	if p.peekTokenIs(end) {
+		p.nextToken()
+		return list
+	}
+
+	p.nextToken()
+	list = append(list, p.parseExpression(LOWEST))
+
+	for p.peekTokenIs(token.COMMA) {
+		p.nextToken()
+		p.nextToken()
+
+		list = append(list, p.parseExpression(LOWEST))
+	}
+
+	if !p.expectPeek(end) {
+		return nil
+	}
+
+	return list
 }
 
 func (p *Parser) nextToken() {
