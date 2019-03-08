@@ -1,7 +1,7 @@
 package object
 
 const (
-	// TypeCharacter is the node type for a character object.
+	// TypeCharacter is the type for a character value.
 	TypeCharacter = "Character"
 )
 

@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	// TypeNumber is the type returned by number instances.
+	// TypeNumber is the type for a numerical value
 	TypeNumber = "Number"
 )
 

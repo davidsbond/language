@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	// TypeBoolean is the node type for a boolean value
+	// TypeBoolean is the type for a boolean value
 	TypeBoolean = "Boolean"
 )
 

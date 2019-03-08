@@ -1,7 +1,7 @@
 package object
 
 const (
-	// TypeString is the node type for a string object.
+	// TypeString is the type for a string value.
 	TypeString = "String"
 )
 
