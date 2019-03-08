@@ -10,13 +10,18 @@ func (p *Parser) parseFunctionLiteral() ast.Node {
 		Token: p.currentToken,
 	}
 
-	if !p.expectPeek(token.IDENT) {
-		return nil
-	}
+	if !p.peekTokenIs(token.IDENT) {
+		lit.Name = &ast.Identifier{
+			Token: p.currentToken,
+			Value: "anonymous",
+		}
+	} else {
+		p.nextToken()
 
-	lit.Name = &ast.Identifier{
-		Token: p.currentToken,
-		Value: p.currentToken.Literal,
+		lit.Name = &ast.Identifier{
+			Token: p.currentToken,
+			Value: p.currentToken.Literal,
+		}
 	}
 
 	if !p.expectPeek(token.LPAREN) {
