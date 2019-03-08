@@ -21,8 +21,13 @@ type (
 func (fl *FunctionLiteral) String() string {
 	var out strings.Builder
 
-	out.WriteString("function ")
-	out.WriteString(fl.Name.String())
+	if fl.Name.Value == "anonymous" {
+		out.WriteString("func")
+	} else {
+		out.WriteString("func ")
+		out.WriteString(fl.Name.String())
+	}
+
 	out.WriteString("(")
 
 	for i, ident := range fl.Parameters {
