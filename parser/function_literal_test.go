@@ -18,8 +18,59 @@ func TestParser_FunctionLiteral(t *testing.T) {
 	tt := []struct {
 		Name            string
 		Expression      string
-		ExpectedLiteral *ast.FunctionLiteral
+		ExpectedLiteral ast.Node
 	}{
+		{
+			Name: "It should parse valid inline function literals",
+			Expression: `
+			var add = func(a, b) {
+				return a + b
+			}
+			`,
+			ExpectedLiteral: &ast.VarStatement{
+				Token: token.New(token.VAR, token.VAR, 0, 0),
+				Name: &ast.Identifier{
+					Token: token.New("add", token.VAR, 0, 0),
+					Value: "add",
+				},
+				Value: &ast.FunctionLiteral{
+					Name: &ast.Identifier{
+						Token: token.New("func", token.IDENT, 0, 0),
+						Value: "anonymous",
+					},
+					Parameters: []*ast.Identifier{
+						&ast.Identifier{
+							Token: token.New("a", token.IDENT, 0, 0),
+							Value: "a",
+						},
+						&ast.Identifier{
+							Token: token.New("b", token.IDENT, 0, 0),
+							Value: "b",
+						},
+					},
+					Body: &ast.BlockStatement{
+						Token: token.New("{", token.LBRACE, 0, 0),
+						Statements: []ast.Node{
+							&ast.ReturnStatement{
+								Token: token.New(token.RETURN, token.RETURN, 0, 0),
+								ReturnValue: &ast.InfixExpression{
+									Token:    token.New(token.PLUS, token.PLUS, 0, 0),
+									Operator: "+",
+									Left: &ast.Identifier{
+										Token: token.New("a", token.IDENT, 0, 0),
+										Value: "a",
+									},
+									Right: &ast.Identifier{
+										Token: token.New("b", token.IDENT, 0, 0),
+										Value: "b",
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
 		{
 			Name: "It should parse a valid function literal",
 			Expression: `
@@ -75,9 +126,8 @@ func TestParser_FunctionLiteral(t *testing.T) {
 
 			assert.Len(t, result.Nodes, 1)
 
-			stmt, ok := result.Nodes[0].(*ast.FunctionLiteral)
+			stmt := result.Nodes[0]
 
-			assert.True(t, ok)
 			assert.Equal(t, tc.ExpectedLiteral.String(), stmt.String())
 		})
 	}
