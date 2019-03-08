@@ -16,6 +16,8 @@ func TestEvaluator_Evaluate(t *testing.T) {
 	const a = "test"
 	atomic b = "test" + a
 	var c = "test" + b
+
+	return b
 	`
 
 	rd := bufio.NewReader(strings.NewReader(code))

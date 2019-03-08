@@ -65,6 +65,9 @@ const (
 
 	// NEWLINE is the token type used for newline characters.
 	NEWLINE = "\n"
+
+	// RETURN is the token type used for a return statement
+	RETURN = "return"
 )
 
 var (
@@ -74,6 +77,7 @@ var (
 		"atomic": ATOMIC,
 		"true":   TRUE,
 		"false":  FALSE,
+		"return": RETURN,
 	}
 )
 

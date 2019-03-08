@@ -32,6 +32,8 @@ func Evaluate(node ast.Node, scope *object.Scope) object.Object {
 		return &object.Boolean{Value: node.Value}
 	case *ast.CharacterLiteral:
 		return &object.Character{Value: node.Value}
+	case *ast.ReturnStatement:
+		return &object.ReturnValue{Value: Evaluate(node.ReturnValue, scope)}
 	case *ast.Identifier:
 		return scope.Get(node.Value)
 	case nil:

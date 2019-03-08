@@ -126,6 +126,8 @@ func (p *Parser) parseStatement() ast.Node {
 		return p.parseConstStatement()
 	case token.ATOMIC:
 		return p.parseAtomicStatement()
+	case token.RETURN:
+		return p.parseReturnStatement()
 	default:
 		return p.parseExpressionStatement()
 	}

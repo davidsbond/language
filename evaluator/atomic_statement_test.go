@@ -39,6 +39,13 @@ func TestEvaluator_AtomicStatement(t *testing.T) {
 			ExpectedKey:    "test",
 			ExpectedObject: object.MakeAtomic(&object.Boolean{Value: true}),
 		},
+
+		{
+			Name:           "It should evaluate atomic character declarations",
+			Expression:     "var test = 'a'",
+			ExpectedKey:    "test",
+			ExpectedObject: object.MakeAtomic(&object.Character{Value: 'a'}),
+		},
 	}
 
 	for _, tc := range tt {

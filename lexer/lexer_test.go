@@ -187,6 +187,15 @@ func TestLexer_NextToken(t *testing.T) {
 				Column:  0,
 			},
 		},
+		{
+			Expression: "return",
+			ExpectedToken: &token.Token{
+				Literal: "return",
+				Type:    token.RETURN,
+				Line:    2,
+				Column:  0,
+			},
+		},
 	}
 
 	for _, tc := range tt {
