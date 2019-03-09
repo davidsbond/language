@@ -18,7 +18,7 @@ type (
 		Name       *ast.Identifier
 		Parameters []*ast.Identifier
 		Body       *ast.BlockStatement
-		Scope      *Scope
+		Async      bool
 	}
 )
 
@@ -34,7 +34,6 @@ func (fn *Function) Clone() Object {
 		Name:       fn.Name,
 		Parameters: fn.Parameters,
 		Body:       fn.Body,
-		Scope:      fn.Scope,
 	}
 }
 
