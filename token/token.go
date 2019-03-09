@@ -89,6 +89,9 @@ const (
 
 	// AWAIT is the token type used for an await statement
 	AWAIT = "await"
+
+	// COLON is the token type used for colon characters
+	COLON = ":"
 )
 
 var (
