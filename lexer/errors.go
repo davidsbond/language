@@ -16,8 +16,8 @@ type (
 func (l *Lexer) error(msg string, args ...interface{}) error {
 	return Error{
 		message: fmt.Sprintf(msg, args...),
-		line:    l.linePosition,
-		column:  l.position,
+		line:    l.line,
+		column:  l.column,
 	}
 }
 
