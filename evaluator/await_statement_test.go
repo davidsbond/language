@@ -40,7 +40,7 @@ func TestEvaluator_AwaitStatement(t *testing.T) {
 			}
 			
 			add(1, 2)`,
-			ExpectedObject: nil,
+			ExpectedObject: &object.Null{},
 		},
 	}
 
@@ -54,10 +54,8 @@ func TestEvaluator_AwaitStatement(t *testing.T) {
 			scope := object.NewScope()
 			actual := evaluator.Evaluate(ast, scope)
 
-			if actual != nil {
-				assert.Equal(t, tc.ExpectedObject.Type(), actual.Type())
-				assert.Equal(t, tc.ExpectedObject.String(), actual.String())
-			}
+			assert.Equal(t, tc.ExpectedObject.Type(), actual.Type())
+			assert.Equal(t, tc.ExpectedObject.String(), actual.String())
 		})
 	}
 }

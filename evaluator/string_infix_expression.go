@@ -24,7 +24,7 @@ func evaluateStringInfixExpression(operator string, left, right object.Object) o
 
 	switch operator {
 	default:
-		return nil
+		return object.Error("type String does not support operator %s", operator)
 	case token.PLUS:
 		return &object.String{Value: trueLeft.Value + trueRight.Value}
 	case token.EQUALS:

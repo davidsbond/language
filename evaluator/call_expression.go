@@ -9,7 +9,7 @@ func evaluateCallExpression(node *ast.CallExpression, scope *object.Scope) objec
 	fn := Evaluate(node.Function, scope)
 
 	if isError(fn) {
-		return nil
+		return fn
 	}
 
 	var args []object.Object
@@ -18,7 +18,7 @@ func evaluateCallExpression(node *ast.CallExpression, scope *object.Scope) objec
 		val := Evaluate(arg, scope)
 
 		if isError(val) {
-			return nil
+			return val
 		}
 
 		args = append(args, val)
@@ -43,7 +43,7 @@ func evaluateCallExpression(node *ast.CallExpression, scope *object.Scope) objec
 
 		if function.Async {
 			go evaluateFunction(function, args, scope)
-			return nil
+			return &object.Null{}
 		}
 
 		return evaluateFunction(function, args, scope)

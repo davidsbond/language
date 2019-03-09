@@ -12,6 +12,5 @@ func evaluateAtomicStatement(node *ast.AtomicStatement, scope *object.Scope) obj
 		return val
 	}
 
-	scope.Set(node.Name.Value, object.MakeAtomic(val))
-	return nil
+	return scope.Set(node.Name.Value, object.MakeAtomic(val))
 }
