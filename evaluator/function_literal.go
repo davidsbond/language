@@ -10,7 +10,6 @@ func evaluateFunctionLiteral(node *ast.FunctionLiteral, scope *object.Scope) obj
 		Name:       node.Name,
 		Parameters: node.Parameters,
 		Body:       node.Body,
-		Scope:      scope,
 	}
 
 	scope.Set(lit.Name.Value, lit)
