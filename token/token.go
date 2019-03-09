@@ -89,6 +89,12 @@ const (
 
 	// AWAIT is the token type used for an await statement
 	AWAIT = "await"
+
+	// LBRACKET is the token type used for a left bracket
+	LBRACKET = "["
+
+	// RBRACKET is the token type used for a right bracket
+	RBRACKET = "]"
 )
 
 var (
