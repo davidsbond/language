@@ -80,6 +80,7 @@ func New(lexer *lexer.Lexer) (parser *Parser) {
 		token.IDENT:    parser.parseIdentifier,
 		token.FUNCTION: parser.parseFunctionLiteral,
 		token.AWAIT:    parser.parseAwaitStatement,
+		token.LBRACE:   parser.parseHashLiteral,
 	}
 
 	parser.infixParsers = map[token.Type]infixParseFn{
