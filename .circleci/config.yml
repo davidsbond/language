@@ -1,6 +1,8 @@
 version: 2
 jobs:
   test:
+    environment:
+      CGO_ENABLED: "0"
     docker:
       - image: golang:alpine
     working_directory: /src
