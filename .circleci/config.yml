@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: golang:alpine
+    working_directory: /src
+    steps:
+      - run:
+          name: Install git
+          command: apk add git
+      - checkout
+      - run:
+          name: Run tests
+          command: go test -v ./...
+
+workflows:
+  version: 2
+  development:
+    jobs:
+      - test
