@@ -31,6 +31,8 @@ func evaluateCallExpression(node *ast.CallExpression, scope *object.Scope) objec
 		return object.Error("expected function, got nil")
 	case *object.Function:
 		return evaluateSynchronousFunction(function, args, scope)
+	case object.Builtin:
+		return function(args...)
 	}
 }
 

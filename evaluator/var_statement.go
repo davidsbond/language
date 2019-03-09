@@ -13,5 +13,5 @@ func evaluateVarStatement(node *ast.VarStatement, scope *object.Scope) object.Ob
 	}
 
 	scope.Set(node.Name.Value, val)
-	return nil
+	return val
 }

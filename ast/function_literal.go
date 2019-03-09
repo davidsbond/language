@@ -40,7 +40,7 @@ func (fl *FunctionLiteral) String() string {
 
 	out.WriteString(") {\n")
 	out.WriteString(fl.Body.String())
-	out.WriteString("\n}")
+	out.WriteString("\n}\n")
 
 	return out.String()
 }

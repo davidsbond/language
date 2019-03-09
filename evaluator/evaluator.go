@@ -41,7 +41,7 @@ func Evaluate(node ast.Node, scope *object.Scope) object.Object {
 	case *ast.ReturnStatement:
 		return &object.ReturnValue{Value: Evaluate(node.ReturnValue, scope)}
 	case *ast.Identifier:
-		return scope.Get(node.Value)
+		return evaluateIdentifier(node, scope)
 	case nil:
 		return object.Error("cannot evaluate nil node")
 	default:
