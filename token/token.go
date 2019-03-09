@@ -83,11 +83,19 @@ const (
 
 	// RBRACE is the token type used for '}' characters
 	RBRACE = "}"
+
+	// ASYNC is the token type used for an async statement
+	ASYNC = "async"
+
+	// AWAIT is the token type used for an await statement
+	AWAIT = "await"
 )
 
 var (
 	keywords = map[string]Type{
+		"async":  ASYNC,
 		"atomic": ATOMIC,
+		"await":  AWAIT,
 		"const":  CONST,
 		"func":   FUNCTION,
 		"false":  FALSE,

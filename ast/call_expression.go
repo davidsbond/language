@@ -14,6 +14,7 @@ type (
 		Token     *token.Token
 		Function  Node
 		Arguments []Node
+		Awaited   bool
 	}
 )
 

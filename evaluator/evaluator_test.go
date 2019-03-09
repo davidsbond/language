@@ -13,20 +13,13 @@ import (
 
 func TestEvaluator_Evaluate(t *testing.T) {
 	code := `
-	const a = "test"
-	atomic b = "test" + a
-	var c = "test" + b
-
-	func add(a, b) {
-		return a + b
+	async func testAsync() {
+		return 1 + 1
 	}
 
-	var sub = func(a, b) {
-		return a - b
-	}
+	const result = await testAsync()
 
-	const added = add(1, 2)
-	const subbed = sub(2, 1)
+	testAsync()
 	`
 
 	rd := bufio.NewReader(strings.NewReader(code))

@@ -30,13 +30,30 @@ func evaluateCallExpression(node *ast.CallExpression, scope *object.Scope) objec
 	case nil:
 		return object.Error("expected function, got nil")
 	case *object.Function:
-		return evaluateSynchronousFunction(function, args, scope)
+		if function.Async && node.Awaited {
+			res := make(chan object.Object, 1)
+
+			go func() {
+				res <- evaluateFunction(function, args, scope)
+				close(res)
+			}()
+
+			return <-res
+		}
+
+		if function.Async {
+			go evaluateFunction(function, args, scope)
+			return nil
+		}
+
+		return evaluateFunction(function, args, scope)
+
 	case object.Builtin:
 		return function(args...)
 	}
 }
 
-func evaluateSynchronousFunction(fn *object.Function, args []object.Object, scope *object.Scope) object.Object {
+func evaluateFunction(fn *object.Function, args []object.Object, scope *object.Scope) object.Object {
 	newScope := scope.NewChildScope()
 
 	for i, param := range fn.Parameters {

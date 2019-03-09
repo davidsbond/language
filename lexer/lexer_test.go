@@ -53,6 +53,24 @@ func TestLexer_NextToken(t *testing.T) {
 			},
 		},
 		{
+			Expression: "await",
+			ExpectedToken: &token.Token{
+				Literal: "await",
+				Type:    token.AWAIT,
+				Line:    1,
+				Column:  0,
+			},
+		},
+		{
+			Expression: "async",
+			ExpectedToken: &token.Token{
+				Literal: "async",
+				Type:    token.ASYNC,
+				Line:    1,
+				Column:  0,
+			},
+		},
+		{
 			Expression: "true",
 			ExpectedToken: &token.Token{
 				Literal: "true",

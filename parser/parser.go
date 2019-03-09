@@ -79,6 +79,7 @@ func New(lexer *lexer.Lexer) (parser *Parser) {
 		token.FALSE:    parser.parseBooleanLiteral,
 		token.IDENT:    parser.parseIdentifier,
 		token.FUNCTION: parser.parseFunctionLiteral,
+		token.AWAIT:    parser.parseAwaitStatement,
 	}
 
 	parser.infixParsers = map[token.Type]infixParseFn{
@@ -131,6 +132,10 @@ func (p *Parser) parseStatement() ast.Node {
 		return p.parseReturnStatement()
 	case token.FUNCTION:
 		return p.parseFunctionLiteral()
+	case token.ASYNC:
+		return p.parseAsyncStatement()
+	case token.AWAIT:
+		return p.parseAwaitStatement()
 	default:
 		return p.parseExpressionStatement()
 	}
