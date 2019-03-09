@@ -92,6 +92,12 @@ const (
 
 	// COLON is the token type used for colon characters
 	COLON = ":"
+
+	// LBRACKET is the token type used for a left bracket
+	LBRACKET = "["
+
+	// RBRACKET is the token type used for a right bracket
+	RBRACKET = "]"
 )
 
 var (

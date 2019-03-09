@@ -259,6 +259,24 @@ func TestLexer_NextToken(t *testing.T) {
 				Column:  0,
 			},
 		},
+		{
+			Expression: "[",
+			ExpectedToken: &token.Token{
+				Literal: token.LBRACKET,
+				Type:    token.LBRACKET,
+				Line:    0,
+				Column:  0,
+			},
+		},
+		{
+			Expression: "]",
+			ExpectedToken: &token.Token{
+				Literal: token.RBRACKET,
+				Type:    token.RBRACKET,
+				Line:    0,
+				Column:  0,
+			},
+		},
 	}
 
 	for _, tc := range tt {
