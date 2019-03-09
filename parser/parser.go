@@ -29,6 +29,9 @@ const (
 
 	// CALL is the precedence level for function calls.
 	CALL
+
+	// INDEX is the precedence level for index expressions
+	INDEX
 )
 
 var (
@@ -43,6 +46,7 @@ var (
 		token.SLASH:    PRODUCT,
 		token.MOD:      PRODUCT,
 		token.LPAREN:   CALL,
+		token.LBRACKET: INDEX,
 	}
 )
 
@@ -80,6 +84,7 @@ func New(lexer *lexer.Lexer) (parser *Parser) {
 		token.IDENT:    parser.parseIdentifier,
 		token.FUNCTION: parser.parseFunctionLiteral,
 		token.AWAIT:    parser.parseAwaitStatement,
+		token.LBRACKET: parser.parseArrayLiteral,
 	}
 
 	parser.infixParsers = map[token.Type]infixParseFn{

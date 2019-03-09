@@ -34,7 +34,7 @@ func (fl *FunctionLiteral) String() string {
 		out.WriteString(ident.String())
 
 		if i != len(fl.Parameters)-1 {
-			out.WriteString(",")
+			out.WriteString(", ")
 		}
 	}
 
