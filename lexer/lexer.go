@@ -14,10 +14,10 @@ type (
 	// The Lexer type breaks down the input source code into a sequence of lexemes and produces
 	// tokens.
 	Lexer struct {
-		input        *bufio.Reader
-		current      rune
-		position     int
-		linePosition int
+		input   *bufio.Reader
+		current rune
+		column  int
+		line    int
 	}
 )
 
@@ -26,9 +26,9 @@ type (
 // to be read, which may return an error if it is an invalid character or EOF.
 func New(input *bufio.Reader) (lex *Lexer, err error) {
 	lex = &Lexer{
-		input:        input,
-		linePosition: 1,
-		position:     0,
+		input:  input,
+		line:   1,
+		column: 0,
 	}
 
 	err = lex.readRune()
@@ -45,29 +45,29 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 	case 0:
 		tok = token.New(token.EOF, token.EOF, 0, 0)
 	case '+':
-		tok = token.New(token.PLUS, token.PLUS, l.linePosition, l.position)
+		tok = token.New(token.PLUS, token.PLUS, l.line, l.column)
 	case '-':
-		tok = token.New(token.MINUS, token.MINUS, l.linePosition, l.position)
+		tok = token.New(token.MINUS, token.MINUS, l.line, l.column)
 	case '<':
-		tok = token.New(token.LT, token.LT, l.linePosition, l.position)
+		tok = token.New(token.LT, token.LT, l.line, l.column)
 	case '>':
-		tok = token.New(token.GT, token.GT, l.linePosition, l.position)
+		tok = token.New(token.GT, token.GT, l.line, l.column)
 	case '/':
-		tok = token.New(token.SLASH, token.SLASH, l.linePosition, l.position)
+		tok = token.New(token.SLASH, token.SLASH, l.line, l.column)
 	case '*':
-		tok = token.New(token.ASTERISK, token.ASTERISK, l.linePosition, l.position)
+		tok = token.New(token.ASTERISK, token.ASTERISK, l.line, l.column)
 	case '%':
-		tok = token.New(token.MOD, token.MOD, l.linePosition, l.position)
+		tok = token.New(token.MOD, token.MOD, l.line, l.column)
 	case '(':
-		tok = token.New(token.LPAREN, token.LPAREN, l.linePosition, l.position)
+		tok = token.New(token.LPAREN, token.LPAREN, l.line, l.column)
 	case ')':
-		tok = token.New(token.RPAREN, token.RPAREN, l.linePosition, l.position)
+		tok = token.New(token.RPAREN, token.RPAREN, l.line, l.column)
 	case ',':
-		tok = token.New(token.COMMA, token.COMMA, l.linePosition, l.position)
+		tok = token.New(token.COMMA, token.COMMA, l.line, l.column)
 	case '{':
-		tok = token.New(token.LBRACE, token.LBRACE, l.linePosition, l.position)
+		tok = token.New(token.LBRACE, token.LBRACE, l.line, l.column)
 	case '}':
-		tok = token.New(token.RBRACE, token.RBRACE, l.linePosition, l.position)
+		tok = token.New(token.RBRACE, token.RBRACE, l.line, l.column)
 	case '=':
 		var next rune
 
@@ -82,15 +82,15 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 			tok = token.New(
 				"==",
 				token.EQUALS,
-				l.linePosition,
-				l.position)
+				l.line,
+				l.column)
 		} else {
 			// Create a new assignment token
 			tok = token.New(
 				string(l.current),
 				token.ASSIGN,
-				l.linePosition,
-				l.position)
+				l.line,
+				l.column)
 		}
 
 	case '"':
@@ -106,8 +106,8 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 		tok = token.New(
 			string(runes),
 			token.STRING,
-			l.linePosition,
-			l.position,
+			l.line,
+			l.column,
 		)
 
 	case '\'':
@@ -123,8 +123,8 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 		tok = token.New(
 			string(runes[0]),
 			token.CHAR,
-			l.linePosition,
-			l.position,
+			l.line,
+			l.column,
 		)
 
 	default:
@@ -134,14 +134,14 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 			// Read the identifier and check if it's a keyword.
 			ident, err = l.readIdentifier()
 			typ := token.LookupIdentifier(ident)
-			tok = token.New(ident, typ, l.linePosition, l.position)
+			tok = token.New(ident, typ, l.line, l.column)
 
 		} else if isDigit(l.current) {
 			var num string
 
 			// Read the number and produce the token
 			num, err = l.readNumber()
-			tok = token.New(num, token.NUMBER, l.linePosition, l.position)
+			tok = token.New(num, token.NUMBER, l.line, l.column)
 		} else {
 			err = l.error("unsupported character: %v", l.current)
 		}
@@ -159,7 +159,12 @@ func (l *Lexer) readRune() (err error) {
 		ch = 0
 	}
 
-	l.position++
+	if ch == '\n' {
+		l.column = 1
+		l.line++
+	}
+
+	l.column++
 	l.current = ch
 
 	return

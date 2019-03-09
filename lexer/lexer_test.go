@@ -17,7 +17,7 @@ func TestLexer_NextToken(t *testing.T) {
 		ExpectedToken *token.Token
 	}{
 		{
-			Expression: "",
+			Expression: "\n",
 			ExpectedToken: &token.Token{
 				Literal: token.EOF,
 				Type:    token.EOF,
