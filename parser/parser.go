@@ -27,6 +27,9 @@ const (
 	// PRODUCT is the precedence level for '*' operators.
 	PRODUCT
 
+	// PREFIX is the precedence level for '-'/'!' prefixed operators.
+	PREFIX
+
 	// CALL is the precedence level for function calls.
 	CALL
 
@@ -37,6 +40,7 @@ const (
 var (
 	precedence = map[token.Type]int{
 		token.EQUALS:   EQUALS,
+		token.NOTEQ:    EQUALS,
 		token.ASSIGN:   EQUALS,
 		token.PLUS:     SUM,
 		token.MINUS:    SUM,
@@ -86,6 +90,8 @@ func New(lexer *lexer.Lexer) (parser *Parser) {
 		token.AWAIT:    parser.parseAwaitStatement,
 		token.LBRACE:   parser.parseHashLiteral,
 		token.LBRACKET: parser.parseArrayLiteral,
+		token.BANG:     parser.parsePrefixExpression,
+		token.MINUS:    parser.parsePrefixExpression,
 	}
 
 	parser.infixParsers = map[token.Type]infixParseFn{
@@ -98,6 +104,7 @@ func New(lexer *lexer.Lexer) (parser *Parser) {
 		token.MOD:      parser.parseInfixExpression,
 		token.EQUALS:   parser.parseInfixExpression,
 		token.LPAREN:   parser.parseCallExpression,
+		token.NOTEQ:    parser.parseInfixExpression,
 	}
 
 	parser.nextToken()

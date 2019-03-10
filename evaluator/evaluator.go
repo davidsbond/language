@@ -16,6 +16,15 @@ var (
 		"set_env": builtin.SetEnv,
 		"get_env": builtin.GetEnv,
 	}
+
+	// NULL is used as the global null object
+	NULL = &object.Null{}
+
+	// TRUE is used as the global true value
+	TRUE = &object.Boolean{Value: true}
+
+	// FALSE is used as the global false value
+	FALSE = &object.Boolean{Value: false}
 )
 
 // Evaluate attempts to evaluate the given node using the provided scope and return
@@ -42,8 +51,6 @@ func Evaluate(node ast.Node, scope *object.Scope) object.Object {
 		return &object.String{Value: node.Value}
 	case *ast.NumberLiteral:
 		return &object.Number{Value: node.Value}
-	case *ast.BooleanLiteral:
-		return &object.Boolean{Value: node.Value}
 	case *ast.CharacterLiteral:
 		return &object.Character{Value: node.Value}
 	case *ast.FunctionLiteral:
@@ -60,6 +67,12 @@ func Evaluate(node ast.Node, scope *object.Scope) object.Object {
 		return evaluateArrayLiteral(node, scope)
 	case *ast.HashLiteral:
 		return evaluateHashLiteral(node, scope)
+	case *ast.BooleanLiteral:
+		if node.Value {
+			return TRUE
+		}
+
+		return FALSE
 	case nil:
 		return object.Error("cannot evaluate nil node")
 	default:

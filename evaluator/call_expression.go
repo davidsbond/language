@@ -43,7 +43,7 @@ func evaluateCallExpression(node *ast.CallExpression, scope *object.Scope) objec
 
 		if function.Async {
 			go evaluateFunction(function, args, scope)
-			return &object.Null{}
+			return NULL
 		}
 
 		return evaluateFunction(function, args, scope)

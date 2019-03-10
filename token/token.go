@@ -30,6 +30,12 @@ const (
 	// EQUALS is the token type used for equality statements.
 	EQUALS = "=="
 
+	// NOTEQ is the token type used for not equals operators
+	NOTEQ = "!="
+
+	// BANG is the token type used for not expressions.
+	BANG = "!"
+
 	// STRING is the token type used for opening/closing literal strings.
 	STRING = `"`
 

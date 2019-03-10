@@ -23,6 +23,15 @@ func evaluateInfixExpression(node *ast.InfixExpression, scope *object.Scope) obj
 		return evaluateNumberInfixExpression(node.Operator, left, right)
 	case left.Type() == object.TypeString && right.Type() == object.TypeString:
 		return evaluateStringInfixExpression(node.Operator, left, right)
+	case left.Type() == object.TypeString && right.Type() == object.TypeCharacter:
+		// TODO: append string to char
+		return nil
+	case left.Type() == object.TypeCharacter && right.Type() == object.TypeString:
+		// TODO: append char to string
+		return nil
+	case left.Type() == object.TypeBoolean && right.Type() == object.TypeBoolean:
+		// TODO: eval boolean infix exp
+		return nil
 	case left.Type() == object.TypeCharacter && right.Type() == object.TypeCharacter:
 		return evaluateCharacterInfixExpression(node.Operator, left, right)
 	default:

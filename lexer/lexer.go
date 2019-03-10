@@ -74,6 +74,16 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 		tok = token.New(token.LBRACKET, token.LBRACKET, l.line, l.column)
 	case ']':
 		tok = token.New(token.RBRACKET, token.RBRACKET, l.line, l.column)
+	case '!':
+		var next rune
+
+		next, err = l.peekRune()
+
+		if next == '=' {
+			tok = token.New(token.NOTEQ, token.NOTEQ, l.line, l.column)
+		} else {
+			tok = token.New(token.BANG, token.BANG, l.line, l.column)
+		}
 	case '=':
 		var next rune
 

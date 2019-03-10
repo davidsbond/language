@@ -37,11 +37,29 @@ func evaluateNumberInfixExpression(operator string, left, right object.Object) o
 	case token.MOD:
 		return &object.Number{Value: math.Mod(trueLeft.Value, trueRight.Value)}
 	case token.LT:
-		return &object.Boolean{Value: trueLeft.Value < trueRight.Value}
+		if trueLeft.Value < trueRight.Value {
+			return TRUE
+		}
+
+		return FALSE
 	case token.GT:
-		return &object.Boolean{Value: trueLeft.Value > trueRight.Value}
+		if trueLeft.Value > trueRight.Value {
+			return TRUE
+		}
+
+		return FALSE
 	case token.EQUALS:
-		return &object.Boolean{Value: trueLeft.Value == trueRight.Value}
+		if trueLeft.Value == trueRight.Value {
+			return TRUE
+		}
+
+		return FALSE
+	case token.NOTEQ:
+		if trueLeft.Value != trueRight.Value {
+			return TRUE
+		}
+
+		return FALSE
 	}
 }
 

@@ -23,11 +23,29 @@ func evaluateCharacterInfixExpression(operator string, left, right object.Object
 	case token.SLASH:
 		return &object.Character{Value: trueLeft.Value / trueRight.Value}
 	case token.LT:
-		return &object.Boolean{Value: trueLeft.Value < trueRight.Value}
+		if trueLeft.Value < trueRight.Value {
+			return TRUE
+		}
+
+		return FALSE
 	case token.GT:
-		return &object.Boolean{Value: trueLeft.Value > trueRight.Value}
+		if trueLeft.Value > trueRight.Value {
+			return TRUE
+		}
+
+		return FALSE
 	case token.EQUALS:
-		return &object.Boolean{Value: trueLeft.Value == trueRight.Value}
+		if trueLeft.Value == trueRight.Value {
+			return TRUE
+		}
+
+		return FALSE
+	case token.NOTEQ:
+		if trueLeft.Value != trueRight.Value {
+			return TRUE
+		}
+
+		return FALSE
 	}
 }
 
