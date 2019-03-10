@@ -80,6 +80,8 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 		next, err = l.peekRune()
 
 		if next == '=' {
+			err = l.readRune()
+
 			tok = token.New(token.NOTEQ, token.NOTEQ, l.line, l.column)
 		} else {
 			tok = token.New(token.BANG, token.BANG, l.line, l.column)
