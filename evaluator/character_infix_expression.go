@@ -1,6 +1,8 @@
 package evaluator
 
 import (
+	"fmt"
+
 	"github.com/davidsbond/dave/object"
 	"github.com/davidsbond/dave/token"
 )
@@ -8,8 +10,17 @@ import (
 func evaluateCharacterInfixExpression(operator string, left, right object.Object) object.Object {
 	// Get the *object.Character instances for both the left and right objects. Handle
 	// atomic/constants appropriately.
-	trueLeft := getCharacterFromObject(left)
-	trueRight := getCharacterFromObject(right)
+	trueLeft, err := getCharacterFromObject(left)
+
+	if err != nil {
+		return object.Error(err.Error())
+	}
+
+	trueRight, err := getCharacterFromObject(right)
+
+	if err != nil {
+		return object.Error(err.Error())
+	}
 
 	switch operator {
 	default:
@@ -49,13 +60,17 @@ func evaluateCharacterInfixExpression(operator string, left, right object.Object
 	}
 }
 
-func getCharacterFromObject(obj object.Object) *object.Character {
+func getCharacterFromObject(obj object.Object) (*object.Character, error) {
 	switch val := obj.(type) {
 	case *object.Constant:
-		return val.Value.(*object.Character)
+		return getCharacterFromObject(val.Value)
 	case *object.Atomic:
-		return val.Value().(*object.Character)
+		return getCharacterFromObject(val.Value())
+	case *object.Character:
+		return val, nil
+	case nil:
+		return nil, fmt.Errorf("cannot cast nil value")
 	default:
-		return obj.(*object.Character)
+		return nil, fmt.Errorf("cannot cast type %s to type Character", obj.Type())
 	}
 }

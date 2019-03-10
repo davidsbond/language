@@ -49,7 +49,7 @@ func getStringFromObject(obj object.Object) (*object.String, error) {
 	case *object.Atomic:
 		return getStringFromObject(val.Value())
 	case *object.String:
-		return obj.(*object.String), nil
+		return val, nil
 	case nil:
 		return nil, fmt.Errorf("cannot cast nil value")
 	default:
