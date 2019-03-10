@@ -5,24 +5,30 @@ import (
 )
 
 const (
+	// TypeHash is the type returned by hash objects.
 	TypeHash = "Hash"
 )
 
 type (
+	// The Hash type represents a hash stored in memory. Each key is uniquely generated
+	// based on the type used as the underlying key.
 	Hash struct {
 		Pairs map[HashKey]HashPair
 	}
 
+	// The HashPair type represents a key/value pair stored in a hash.
 	HashPair struct {
 		Key   Object
 		Value Object
 	}
 )
 
+// Type returns this object's type.
 func (h *Hash) Type() Type {
 	return TypeHash
 }
 
+// Clone creates a copy of the map.
 func (h *Hash) Clone() Object {
 	hsh := &Hash{
 		Pairs: make(map[HashKey]HashPair),
