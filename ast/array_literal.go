@@ -7,6 +7,9 @@ import (
 )
 
 type (
+	// The ArrayLiteral type represents a literal array object in source code.
+	// For example:
+	// const arr = [1, 2, 3, 4]
 	ArrayLiteral struct {
 		Token    *token.Token
 		Elements []Node

@@ -30,7 +30,29 @@ func TestParser_HashLiteral(t *testing.T) {
 			}`,
 			ExpectedLiteral: &ast.HashLiteral{
 				Token: token.New(token.LBRACE, token.LBRACE, 0, 0),
-				Pairs: map[ast.Node]ast.Node{},
+				Pairs: map[ast.Node]ast.Node{
+					&ast.StringLiteral{
+						Value: "a",
+						Token: token.New("a", token.STRING, 0, 0),
+					}: &ast.NumberLiteral{
+						Value: 1,
+						Token: token.New("1", token.NUMBER, 0, 0),
+					},
+					&ast.StringLiteral{
+						Value: "b",
+						Token: token.New("b", token.STRING, 0, 0),
+					}: &ast.StringLiteral{
+						Value: "test",
+						Token: token.New("test", token.STRING, 0, 0),
+					},
+					&ast.StringLiteral{
+						Value: "c",
+						Token: token.New("c", token.STRING, 0, 0),
+					}: &ast.CharacterLiteral{
+						Value: 't',
+						Token: token.New("t", token.CHAR, 0, 0),
+					},
+				},
 			},
 		},
 	}
