@@ -1,5 +1,7 @@
 package object
 
+import "hash/fnv"
+
 const (
 	// TypeString is the type for a string value.
 	TypeString = "String"
@@ -21,6 +23,14 @@ func (str *String) Type() Type {
 // without modifying the original value
 func (str *String) Clone() Object {
 	return &String{Value: str.Value}
+}
+
+// HashKey creates a unique key for this value for use in hash maps.
+func (str *String) HashKey() HashKey {
+	h := fnv.New64a()
+	h.Write([]byte(str.Value))
+
+	return HashKey{Type: str.Type(), Value: float64(h.Sum64())}
 }
 
 func (str *String) String() string {

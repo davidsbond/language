@@ -28,6 +28,11 @@ func (num *Number) Clone() Object {
 	return &Number{Value: num.Value}
 }
 
+// HashKey creates a unique key for this value for use in hashes.
+func (num *Number) HashKey() HashKey {
+	return HashKey{Type: num.Type(), Value: num.Value}
+}
+
 func (num *Number) String() string {
 	return fmt.Sprint(num.Value)
 }

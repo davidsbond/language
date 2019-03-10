@@ -27,6 +27,20 @@ func (b *Boolean) Clone() Object {
 	return &Boolean{Value: b.Value}
 }
 
+// HashKey creates a unique identifier for this value for use
+// in hashes.
+func (b *Boolean) HashKey() HashKey {
+	var value float64
+
+	if b.Value {
+		value = 1
+	} else {
+		value = 0
+	}
+
+	return HashKey{Type: b.Type(), Value: value}
+}
+
 func (b *Boolean) String() string {
 	return strconv.FormatBool(b.Value)
 }

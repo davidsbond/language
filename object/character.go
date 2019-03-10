@@ -1,5 +1,7 @@
 package object
 
+import "hash/fnv"
+
 const (
 	// TypeCharacter is the type for a character value.
 	TypeCharacter = "Character"
@@ -21,6 +23,14 @@ func (c *Character) Type() Type {
 // without modifying the original value
 func (c *Character) Clone() Object {
 	return &Character{Value: c.Value}
+}
+
+// HashKey creates a unique key for this value for use in hash maps.
+func (c *Character) HashKey() HashKey {
+	h := fnv.New64a()
+	h.Write([]byte(string(c.Value)))
+
+	return HashKey{Type: c.Type(), Value: float64(h.Sum64())}
 }
 
 func (c *Character) String() string {
