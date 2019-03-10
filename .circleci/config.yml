@@ -8,6 +8,9 @@ jobs:
       - image: golang:alpine
     working_directory: /src
     steps:
+      - restore_cache:
+          keys:
+            - cache-{{ checksum "go.sum" }}
       - run:
           name: Install git
           command: apk add git
