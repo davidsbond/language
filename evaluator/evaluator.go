@@ -14,6 +14,7 @@ var (
 		"type":    builtin.Type,
 		"len":     builtin.Len,
 		"set_env": builtin.SetEnv,
+		"get_env": builtin.GetEnv,
 	}
 )
 
