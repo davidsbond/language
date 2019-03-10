@@ -15,12 +15,12 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - gocache-{{ .Branch }}
+            - gocache-{{ .Branch }}-{{ .Environment.CIRCLE_PREVIOUS_BUILD_NUM }}
       - run:
           name: Run tests
           command: go test ./...
       - save_cache:
-          key: gocache-{{ .Branch }}
+          key: gocache-{{ .Branch }}-{{ .BuildNum }}
           paths:
               - /tmp/go/cache
 workflows:
