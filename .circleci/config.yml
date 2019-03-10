@@ -16,7 +16,7 @@ jobs:
           name: Run tests
           command: go test -v ./...
       - save_cache:
-          key: cache-{{ checksum go.sum }}
+          key: cache-{{ checksum "go.sum" }}
           paths:
               - /tmp/go/cache
 workflows:
