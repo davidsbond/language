@@ -25,32 +25,40 @@ func evaluateCharacterInfixExpression(operator string, left, right object.Object
 	switch operator {
 	default:
 		return object.Error("type %s does not support operator %s", trueLeft.Type(), operator)
+	// 'a' + 'b'
 	case token.PLUS:
 		return &object.String{Value: string([]rune{trueLeft.Value, trueRight.Value})}
+	// 'a' - 'b'
 	case token.MINUS:
 		return &object.Character{Value: trueLeft.Value - trueRight.Value}
+	// 'a' * 'b'
 	case token.ASTERISK:
 		return &object.Character{Value: trueLeft.Value * trueRight.Value}
+	// 'a' / 'b'
 	case token.SLASH:
 		return &object.Character{Value: trueLeft.Value / trueRight.Value}
+	// 'a' > 'b'
 	case token.LT:
 		if trueLeft.Value < trueRight.Value {
 			return TRUE
 		}
 
 		return FALSE
+	// 'a' > 'b'
 	case token.GT:
 		if trueLeft.Value > trueRight.Value {
 			return TRUE
 		}
 
 		return FALSE
+	// 'a' == 'b'
 	case token.EQUALS:
 		if trueLeft.Value == trueRight.Value {
 			return TRUE
 		}
 
 		return FALSE
+	// 'a' != 'b'
 	case token.NOTEQ:
 		if trueLeft.Value != trueRight.Value {
 			return TRUE

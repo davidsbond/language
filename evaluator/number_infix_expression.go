@@ -26,34 +26,43 @@ func evaluateNumberInfixExpression(operator string, left, right object.Object) o
 	switch operator {
 	default:
 		return object.Error("type Number does not support operator %s", operator)
+	// 1 + 1
 	case token.PLUS:
 		return &object.Number{Value: trueLeft.Value + trueRight.Value}
+	// 1 - 1
 	case token.MINUS:
 		return &object.Number{Value: trueLeft.Value - trueRight.Value}
+	// 1 * 1
 	case token.ASTERISK:
 		return &object.Number{Value: trueLeft.Value * trueRight.Value}
+	// 1 / 1
 	case token.SLASH:
 		return &object.Number{Value: trueLeft.Value / trueRight.Value}
+	// 1 % 1
 	case token.MOD:
 		return &object.Number{Value: math.Mod(trueLeft.Value, trueRight.Value)}
+	// 1 < 1
 	case token.LT:
 		if trueLeft.Value < trueRight.Value {
 			return TRUE
 		}
 
 		return FALSE
+	// 1 > 1
 	case token.GT:
 		if trueLeft.Value > trueRight.Value {
 			return TRUE
 		}
 
 		return FALSE
+	// 1 == 1
 	case token.EQUALS:
 		if trueLeft.Value == trueRight.Value {
 			return TRUE
 		}
 
 		return FALSE
+	// 1 != 1
 	case token.NOTEQ:
 		if trueLeft.Value != trueRight.Value {
 			return TRUE
