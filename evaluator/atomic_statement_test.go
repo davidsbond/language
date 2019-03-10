@@ -46,6 +46,18 @@ func TestEvaluator_AtomicStatement(t *testing.T) {
 			ExpectedKey:    "test",
 			ExpectedObject: object.MakeAtomic(&object.Character{Value: 'a'}),
 		},
+		{
+			Name:        "It should evaluate atomic array declarations",
+			Expression:  "atomic test = [1, 2, 3, 4]",
+			ExpectedKey: "test",
+			ExpectedObject: object.MakeAtomic(&object.Array{
+				Elements: []object.Object{
+					&object.Number{Value: 1},
+					&object.Number{Value: 2},
+					&object.Number{Value: 3},
+					&object.Number{Value: 4},
+				}}),
+		},
 	}
 
 	for _, tc := range tt {

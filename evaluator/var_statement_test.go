@@ -45,6 +45,19 @@ func TestEvaluator_VarStatement(t *testing.T) {
 			ExpectedKey:    "test",
 			ExpectedObject: &object.Character{Value: 'a'},
 		},
+		{
+			Name:        "It should evaluate constant array declarations",
+			Expression:  "var test = [1, 2, 3, 4]",
+			ExpectedKey: "test",
+			ExpectedObject: &object.Array{
+				Elements: []object.Object{
+					&object.Number{Value: 1},
+					&object.Number{Value: 2},
+					&object.Number{Value: 3},
+					&object.Number{Value: 4},
+				},
+			},
+		},
 	}
 
 	for _, tc := range tt {

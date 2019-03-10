@@ -46,6 +46,8 @@ func Evaluate(node ast.Node, scope *object.Scope) object.Object {
 		return evaluateAsyncStatement(node, scope)
 	case *ast.AwaitStatement:
 		return evaluateAwaitStatement(node, scope)
+	case *ast.ArrayLiteral:
+		return evaluateArrayLiteral(node, scope)
 	case nil:
 		return object.Error("cannot evaluate nil node")
 	default:
