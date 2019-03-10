@@ -133,6 +133,38 @@ func TestParser_InfixExpression(t *testing.T) {
 				},
 			},
 		},
+		{
+			Name:       "It should parse comparison",
+			Expression: "2 == 1",
+			ExpectedExpression: &ast.InfixExpression{
+				Operator: token.EQUALS,
+				Token:    token.New(token.MINUS, token.MINUS, 0, 0),
+				Left: &ast.NumberLiteral{
+					Token: token.New("2", token.NUMBER, 0, 0),
+					Value: 2,
+				},
+				Right: &ast.NumberLiteral{
+					Token: token.New("1", token.NUMBER, 0, 0),
+					Value: 1,
+				},
+			},
+		},
+		{
+			Name:       "It should parse not-comparison",
+			Expression: "2 != 1",
+			ExpectedExpression: &ast.InfixExpression{
+				Operator: token.NOTEQ,
+				Token:    token.New(token.MINUS, token.MINUS, 0, 0),
+				Left: &ast.NumberLiteral{
+					Token: token.New("2", token.NUMBER, 0, 0),
+					Value: 2,
+				},
+				Right: &ast.NumberLiteral{
+					Token: token.New("1", token.NUMBER, 0, 0),
+					Value: 1,
+				},
+			},
+		},
 	}
 
 	for _, tc := range tt {
