@@ -15,12 +15,12 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - cache-{{ checksum "go.sum" }}
+            - gocache-{{ .Branch }}
       - run:
           name: Run tests
           command: go test ./...
       - save_cache:
-          key: cache-{{ checksum "go.sum" }}
+          key: gocache-{{ .Branch }}
           paths:
               - /tmp/go/cache
 workflows:
