@@ -1,8 +1,9 @@
-version: 2
+version: 2.1
 jobs:
   test:
     environment:
       CGO_ENABLED: "0"
+      GOCACHE: "/tmp/go/cache"
     docker:
       - image: golang:alpine
     working_directory: /src
@@ -14,7 +15,10 @@ jobs:
       - run:
           name: Run tests
           command: go test -v ./...
-
+      - save_cache:
+          key: cache-{{ checksum go.sum }}
+          paths:
+              - /tmp/go/cache
 workflows:
   version: 2
   development:
