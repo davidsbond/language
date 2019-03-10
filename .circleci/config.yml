@@ -18,7 +18,7 @@ jobs:
             - cache-{{ checksum "go.sum" }}
       - run:
           name: Run tests
-          command: go test -v ./...
+          command: go test ./...
       - save_cache:
           key: cache-{{ checksum "go.sum" }}
           paths:
