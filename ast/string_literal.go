@@ -1,6 +1,10 @@
 package ast
 
-import "github.com/davidsbond/dave/token"
+import (
+	"fmt"
+
+	"github.com/davidsbond/dave/token"
+)
 
 type (
 	// The StringLiteral type represents a literal string within the source code.
@@ -14,5 +18,5 @@ type (
 )
 
 func (nl *StringLiteral) String() string {
-	return nl.Value
+	return fmt.Sprintf(`"%s"`, nl.Value)
 }

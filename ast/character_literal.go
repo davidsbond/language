@@ -1,6 +1,10 @@
 package ast
 
-import "github.com/davidsbond/dave/token"
+import (
+	"fmt"
+
+	"github.com/davidsbond/dave/token"
+)
 
 type (
 	// The CharacterLiteral type represents a literal character within the source code.
@@ -14,5 +18,5 @@ type (
 )
 
 func (cl *CharacterLiteral) String() string {
-	return string(cl.Value)
+	return fmt.Sprintf("'%s'", string(cl.Value))
 }
