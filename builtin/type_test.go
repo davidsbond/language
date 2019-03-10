@@ -24,6 +24,11 @@ func TestBuiltin_Type(t *testing.T) {
 			Args:           []object.Object{&object.Number{}, &object.Number{}},
 			ExpectedObject: object.Error("built-in 'type' function only takes one argument"),
 		},
+		{
+			Name:           "It should return an error invalid arguments",
+			Args:           []object.Object{},
+			ExpectedObject: object.Error("built-in 'type' function only takes one argument"),
+		},
 	}
 
 	for _, tc := range tt {

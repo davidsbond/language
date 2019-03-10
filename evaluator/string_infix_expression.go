@@ -35,9 +35,9 @@ func evaluateStringInfixExpression(operator string, left, right object.Object) o
 func getStringFromObject(obj object.Object) (*object.String, error) {
 	switch val := obj.(type) {
 	case *object.Constant:
-		return val.Value.(*object.String), nil
+		return getStringFromObject(val.Value)
 	case *object.Atomic:
-		return val.Value().(*object.String), nil
+		return getStringFromObject(val.Value())
 	case *object.String:
 		return obj.(*object.String), nil
 	case nil:

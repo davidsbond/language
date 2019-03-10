@@ -5,7 +5,16 @@ package evaluator
 
 import (
 	"github.com/davidsbond/dave/ast"
+	"github.com/davidsbond/dave/builtin"
 	"github.com/davidsbond/dave/object"
+)
+
+var (
+	builtins = map[string]object.Builtin{
+		"type":    builtin.Type,
+		"len":     builtin.Len,
+		"set_env": builtin.SetEnv,
+	}
 )
 
 // Evaluate attempts to evaluate the given node using the provided scope and return
