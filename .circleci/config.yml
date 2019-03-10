@@ -3,6 +3,7 @@ version: 2.1
 jobs:
   test:
     environment:
+      # Disable C support and set the cache to a location we can upload.
       CGO_ENABLED: "0"
       GOCACHE: "/tmp/go/cache"
     docker:
@@ -13,12 +14,17 @@ jobs:
           name: Install git
           command: apk add git
       - checkout
+      # Restore the cache from the previous build number, this way we can cache
+      # tests that won't have changed since the last build for this branch.
       - restore_cache:
           keys:
             - gocache-{{ .Branch }}-{{ .Environment.CIRCLE_PREVIOUS_BUILD_NUM }}
       - run:
           name: Run tests
           command: go test ./...
+
+      # Save the cache with the current build number to be picked up by the next build
+      # for this branch.
       - save_cache:
           key: gocache-{{ .Branch }}-{{ .BuildNum }}
           paths:
