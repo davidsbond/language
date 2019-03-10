@@ -9,6 +9,8 @@ import (
 )
 
 func TestBuiltin_Type(t *testing.T) {
+	t.Parallel()
+
 	tt := []struct {
 		Name           string
 		Args           []object.Object

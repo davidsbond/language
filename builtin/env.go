@@ -43,7 +43,7 @@ func SetEnv(args ...object.Object) object.Object {
 // a string.
 func GetEnv(args ...object.Object) object.Object {
 	if len(args) > 1 || len(args) == 0 {
-		return object.Error("built-in 'get_env' function only takes two arguments")
+		return object.Error("built-in 'get_env' function only takes one argument")
 	}
 
 	// Iterate over the first argument's type to ensure
@@ -58,9 +58,9 @@ func GetEnv(args ...object.Object) object.Object {
 	// If we have a constant or atomic value passed in, obtain its value and
 	// use recursion to check for their stringiness.
 	case *object.Constant:
-		return GetEnv(obj.Value, args[1])
+		return GetEnv(obj.Value)
 	case *object.Atomic:
-		return GetEnv(obj.Value(), args[1])
+		return GetEnv(obj.Value())
 	}
 
 	// Return a new string with the env var value.
