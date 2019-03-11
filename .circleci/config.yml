@@ -16,6 +16,9 @@ jobs:
           keys:
             - gocache-{{ .Branch }}-{{ .Environment.CIRCLE_PREVIOUS_BUILD_NUM }}
       - run:
+          name: Install go-junit-report
+          command: go get -u github.com/jstemmer/go-junit-report
+      - run:
           name: Run tests
           command: go test -v ./... | go-junit-report > /tmp/test-results/report.xml
       - store_test_results:
