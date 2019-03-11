@@ -104,6 +104,9 @@ const (
 
 	// RBRACKET is the token type used for a right bracket
 	RBRACKET = "]"
+
+	// COMMENT is the token type for a single-line comment.
+	COMMENT = "//"
 )
 
 var (

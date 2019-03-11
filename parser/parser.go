@@ -39,6 +39,7 @@ const (
 
 var (
 	precedence = map[token.Type]int{
+		token.COMMENT:  LOWEST,
 		token.EQUALS:   EQUALS,
 		token.NOTEQ:    EQUALS,
 		token.ASSIGN:   EQUALS,
@@ -150,6 +151,8 @@ func (p *Parser) parseStatement() ast.Node {
 		return p.parseAsyncStatement()
 	case token.AWAIT:
 		return p.parseAwaitStatement()
+	case token.COMMENT:
+		return p.parseComment()
 	default:
 		return p.parseExpressionStatement()
 	}

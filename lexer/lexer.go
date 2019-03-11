@@ -52,8 +52,6 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 		tok = token.New(token.LT, token.LT, l.line, l.column)
 	case '>':
 		tok = token.New(token.GT, token.GT, l.line, l.column)
-	case '/':
-		tok = token.New(token.SLASH, token.SLASH, l.line, l.column)
 	case '*':
 		tok = token.New(token.ASTERISK, token.ASTERISK, l.line, l.column)
 	case '%':
@@ -74,6 +72,29 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 		tok = token.New(token.LBRACKET, token.LBRACKET, l.line, l.column)
 	case ']':
 		tok = token.New(token.RBRACKET, token.RBRACKET, l.line, l.column)
+	case '/':
+		var next rune
+
+		next, err = l.peekRune()
+
+		// If we get '//' create a comment block whose value is all runes
+		// up until the newline.
+		switch next {
+		case '/':
+			var runes []rune
+
+			err = l.readRune()
+			err = l.readRune()
+
+			for l.current != '\n' && err == nil {
+				runes = append(runes, l.current)
+				err = l.readRune()
+			}
+
+			tok = token.New(string(runes), token.COMMENT, l.line, l.column)
+		default:
+			tok = token.New(token.SLASH, token.SLASH, l.line, l.column)
+		}
 	case '!':
 		var next rune
 

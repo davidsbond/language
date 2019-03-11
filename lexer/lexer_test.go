@@ -17,6 +17,42 @@ func TestLexer_NextToken(t *testing.T) {
 		ExpectedToken *token.Token
 	}{
 		{
+			Expression: "!=",
+			ExpectedToken: &token.Token{
+				Literal: token.NOTEQ,
+				Type:    token.NOTEQ,
+				Line:    0,
+				Column:  0,
+			},
+		},
+		{
+			Expression: "//",
+			ExpectedToken: &token.Token{
+				Literal: token.COMMENT,
+				Type:    token.COMMENT,
+				Line:    0,
+				Column:  0,
+			},
+		},
+		{
+			Expression: "!",
+			ExpectedToken: &token.Token{
+				Literal: token.BANG,
+				Type:    token.BANG,
+				Line:    0,
+				Column:  0,
+			},
+		},
+		{
+			Expression: ":",
+			ExpectedToken: &token.Token{
+				Literal: token.COLON,
+				Type:    token.COLON,
+				Line:    0,
+				Column:  0,
+			},
+		},
+		{
 			Expression: "\n",
 			ExpectedToken: &token.Token{
 				Literal: token.EOF,
