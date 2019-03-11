@@ -7,12 +7,9 @@ jobs:
       CGO_ENABLED: "0"
       GOCACHE: "/tmp/go/cache"
     docker:
-      - image: golang:alpine
+      - image: circleci/golang
     working_directory: /src
     steps:
-      - run:
-          name: Install git
-          command: apk add git
       - checkout
       # Restore the cache from the previous build number, this way we can cache
       # tests that won't have changed since the last build for this branch.
