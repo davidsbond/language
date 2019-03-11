@@ -83,6 +83,8 @@ func Evaluate(node ast.Node, scope *object.Scope) object.Object {
 		return evaluateArrayLiteral(node, scope)
 	case *ast.HashLiteral:
 		return evaluateHashLiteral(node, scope)
+	case *ast.PostfixExpression:
+		return evaluatePostfixExpression(node, scope)
 	case *ast.Comment:
 		return NULL
 	case *ast.BooleanLiteral:

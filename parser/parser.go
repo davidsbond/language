@@ -64,14 +64,16 @@ type (
 		currentToken *token.Token
 		peekToken    *token.Token
 
-		prefixParsers map[token.Type]prefixParseFn
-		infixParsers  map[token.Type]infixParseFn
+		prefixParsers  map[token.Type]prefixParseFn
+		infixParsers   map[token.Type]infixParseFn
+		postfixParsers map[token.Type]postfixParseFn
 
 		errors []error
 	}
 
-	prefixParseFn func() ast.Node
-	infixParseFn  func(ast.Node) ast.Node
+	prefixParseFn  func() ast.Node
+	infixParseFn   func(ast.Node) ast.Node
+	postfixParseFn func(ast.Node) ast.Node
 )
 
 // New creates a new instance of the Parser type that will parse the tokens
@@ -111,6 +113,11 @@ func New(lexer *lexer.Lexer) (parser *Parser) {
 		token.LBRACKET: parser.parseIndexExpression,
 		token.POW:      parser.parseInfixExpression,
 		token.ASSIGN:   parser.parseInfixExpression,
+	}
+
+	parser.postfixParsers = map[token.Type]postfixParseFn{
+		token.INC: parser.parsePostfixExpression,
+		token.DEC: parser.parsePostfixExpression,
 	}
 
 	parser.nextToken()
@@ -191,6 +198,10 @@ func (p *Parser) parseExpression(precedence int) ast.Node {
 
 		// Otherwise, parse the infix expression
 		leftExp = infix(leftExp)
+	}
+
+	if postfix, ok := p.postfixParsers[p.peekToken.Type]; ok {
+		leftExp = postfix(leftExp)
 	}
 
 	return leftExp

@@ -110,6 +110,12 @@ const (
 
 	// POW is the token type used for a power-of character.
 	POW = "^"
+
+	// INC is the token type used for incrementing
+	INC = "++"
+
+	// DEC is the token type used for decrementing
+	DEC = "--"
 )
 
 var (

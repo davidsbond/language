@@ -45,9 +45,32 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 	case 0:
 		tok = token.New(token.EOF, token.EOF, 0, 0)
 	case '+':
-		tok = token.New(token.PLUS, token.PLUS, l.line, l.column)
+		var next rune
+
+		next, err = l.peekRune()
+
+		switch next {
+		case '+':
+			err = l.readRune()
+
+			tok = token.New(token.INC, token.INC, l.line, l.column)
+		default:
+			tok = token.New(token.PLUS, token.PLUS, l.line, l.column)
+		}
+
 	case '-':
-		tok = token.New(token.MINUS, token.MINUS, l.line, l.column)
+		var next rune
+
+		next, err = l.peekRune()
+
+		switch next {
+		case '-':
+			err = l.readRune()
+
+			tok = token.New(token.DEC, token.DEC, l.line, l.column)
+		default:
+			tok = token.New(token.MINUS, token.MINUS, l.line, l.column)
+		}
 	case '<':
 		tok = token.New(token.LT, token.LT, l.line, l.column)
 	case '>':
