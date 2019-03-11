@@ -18,14 +18,14 @@ func TestEvaluator_HashLiteral(t *testing.T) {
 	tt := []struct {
 		Name           string
 		Expression     string
-		ExpectedObject object.Object
+		ExpectedObject *object.Hash
 	}{
 		{
 			Name:       "It should evaluate hash literals",
 			Expression: `{ "a": 1, "b": "test", "c": 't' }`,
 			ExpectedObject: &object.Hash{
 				Pairs: map[object.HashKey]object.HashPair{
-					object.HashKey{Type: object.TypeString, Value: 1}: object.HashPair{
+					object.HashKey{Type: object.TypeString, Value: 12638187200555643000}: object.HashPair{
 						Key: &object.String{
 							Value: "a",
 						},
@@ -33,7 +33,7 @@ func TestEvaluator_HashLiteral(t *testing.T) {
 							Value: 1,
 						},
 					},
-					object.HashKey{Type: object.TypeString, Value: 2}: object.HashPair{
+					object.HashKey{Type: object.TypeString, Value: 12638190499090526000}: object.HashPair{
 						Key: &object.String{
 							Value: "b",
 						},
@@ -41,7 +41,7 @@ func TestEvaluator_HashLiteral(t *testing.T) {
 							Value: "test",
 						},
 					},
-					object.HashKey{Type: object.TypeString, Value: 3}: object.HashPair{
+					object.HashKey{Type: object.TypeString, Value: 12638189399578898000}: object.HashPair{
 						Key: &object.String{
 							Value: "c",
 						},
@@ -66,8 +66,18 @@ func TestEvaluator_HashLiteral(t *testing.T) {
 
 			assert.NotNil(t, actual)
 
-			assert.Equal(t, tc.ExpectedObject.Type(), actual.Type())
-			assert.Equal(t, tc.ExpectedObject.String(), actual.String())
+			byKey := make(map[float64]object.Object)
+			for key, val := range actual.(*object.Hash).Pairs {
+				byKey[key.Value] = val.Value
+			}
+
+			for key, expected := range tc.ExpectedObject.Pairs {
+				actual, ok := byKey[key.Value]
+
+				assert.True(t, ok)
+				assert.Equal(t, expected.Value.String(), actual.String())
+				assert.Equal(t, expected.Value.Type(), actual.Type())
+			}
 		})
 	}
 }

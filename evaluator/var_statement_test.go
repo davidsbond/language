@@ -58,39 +58,6 @@ func TestEvaluator_VarStatement(t *testing.T) {
 				},
 			},
 		},
-		{
-			Name:        "It should evaluate variable hash declarations",
-			Expression:  `var test = { "a": 1, "b": "test", "c": 't' }`,
-			ExpectedKey: "test",
-			ExpectedObject: &object.Hash{
-				Pairs: map[object.HashKey]object.HashPair{
-					object.HashKey{Type: object.TypeString, Value: 1}: object.HashPair{
-						Key: &object.String{
-							Value: "a",
-						},
-						Value: &object.Number{
-							Value: 1,
-						},
-					},
-					object.HashKey{Type: object.TypeString, Value: 2}: object.HashPair{
-						Key: &object.String{
-							Value: "b",
-						},
-						Value: &object.String{
-							Value: "test",
-						},
-					},
-					object.HashKey{Type: object.TypeString, Value: 3}: object.HashPair{
-						Key: &object.String{
-							Value: "c",
-						},
-						Value: &object.Character{
-							Value: 't',
-						},
-					},
-				},
-			},
-		},
 	}
 
 	for _, tc := range tt {
