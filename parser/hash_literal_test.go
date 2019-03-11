@@ -73,7 +73,17 @@ func TestParser_HashLiteral(t *testing.T) {
 			lit, ok := stmt.Expression.(*ast.HashLiteral)
 			assert.True(t, ok)
 
-			assert.Equal(t, tc.ExpectedLiteral.String(), lit.String())
+			byString := make(map[string]ast.Node)
+			for key, val := range lit.Pairs {
+				byString[key.String()] = val
+			}
+
+			for key, expected := range tc.ExpectedLiteral.Pairs {
+				actual, ok := byString[key.String()]
+
+				assert.True(t, ok)
+				assert.Equal(t, expected.String(), actual.String())
+			}
 		})
 	}
 }
