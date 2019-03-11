@@ -26,9 +26,9 @@ func TestLexer_NextToken(t *testing.T) {
 			},
 		},
 		{
-			Expression: "//",
+			Expression: "// A comment",
 			ExpectedToken: &token.Token{
-				Literal: token.COMMENT,
+				Literal: " A comment",
 				Type:    token.COMMENT,
 				Line:    0,
 				Column:  0,
