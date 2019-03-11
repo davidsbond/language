@@ -41,6 +41,9 @@ func evaluateNumberInfixExpression(operator string, left, right object.Object) o
 	// 1 % 1
 	case token.MOD:
 		return &object.Number{Value: math.Mod(trueLeft.Value, trueRight.Value)}
+	// 1 ^ 1
+	case token.POW:
+		return &object.Number{Value: math.Pow(trueLeft.Value, trueRight.Value)}
 	// 1 < 1
 	case token.LT:
 		if trueLeft.Value < trueRight.Value {

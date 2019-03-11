@@ -107,6 +107,9 @@ const (
 
 	// COMMENT is the token type for a single-line comment.
 	COMMENT = "//"
+
+	// POW is the token type used for a power-of character.
+	POW = "^"
 )
 
 var (

@@ -72,6 +72,8 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 		tok = token.New(token.LBRACKET, token.LBRACKET, l.line, l.column)
 	case ']':
 		tok = token.New(token.RBRACKET, token.RBRACKET, l.line, l.column)
+	case '^':
+		tok = token.New(token.POW, token.POW, l.line, l.column)
 	case '/':
 		var next rune
 

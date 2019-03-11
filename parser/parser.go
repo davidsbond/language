@@ -48,6 +48,7 @@ var (
 		token.LT:       LESSGREATER,
 		token.GT:       LESSGREATER,
 		token.ASTERISK: PRODUCT,
+		token.POW:      PRODUCT,
 		token.SLASH:    PRODUCT,
 		token.MOD:      PRODUCT,
 		token.LPAREN:   CALL,
@@ -107,6 +108,7 @@ func New(lexer *lexer.Lexer) (parser *Parser) {
 		token.LPAREN:   parser.parseCallExpression,
 		token.NOTEQ:    parser.parseInfixExpression,
 		token.LBRACKET: parser.parseIndexExpression,
+		token.POW:      parser.parseInfixExpression,
 	}
 
 	parser.nextToken()
