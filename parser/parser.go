@@ -105,6 +105,7 @@ func New(lexer *lexer.Lexer) (parser *Parser) {
 		token.EQUALS:   parser.parseInfixExpression,
 		token.LPAREN:   parser.parseCallExpression,
 		token.NOTEQ:    parser.parseInfixExpression,
+		token.LBRACKET: parser.parseIndexExpression,
 	}
 
 	parser.nextToken()
