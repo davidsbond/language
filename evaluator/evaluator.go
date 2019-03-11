@@ -86,7 +86,7 @@ func Evaluate(node ast.Node, scope *object.Scope) object.Object {
 	case *ast.PostfixExpression:
 		return evaluatePostfixExpression(node, scope)
 	case *ast.Comment:
-		return NULL
+		return nil
 	case *ast.BooleanLiteral:
 		if node.Value {
 			return TRUE
