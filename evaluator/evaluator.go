@@ -11,10 +11,22 @@ import (
 
 var (
 	builtins = map[string]object.Builtin{
-		"type":    builtin.Type,
-		"len":     builtin.Len,
+		// Reflection builtins
+		"type": builtin.Type,
+		"len":  builtin.Len,
+
+		// Environment builtins
 		"set_env": builtin.SetEnv,
 		"get_env": builtin.GetEnv,
+
+		// Mathematical builtins
+		"cos":   builtin.Cos,
+		"tan":   builtin.Tan,
+		"sin":   builtin.Sin,
+		"log":   builtin.Log,
+		"sqrt":  builtin.Sqrt,
+		"ceil":  builtin.Ceil,
+		"floor": builtin.Floor,
 	}
 
 	// NULL is used as the global null object
