@@ -60,6 +60,14 @@ func TestEvaluator_NumberInfixExpression(t *testing.T) {
 			Expression:     "1 == 1",
 			ExpectedObject: &object.Boolean{Value: true},
 		},
+		{
+			Name: "It should evaluate variable reassignment",
+			Expression: `
+			var a = 1
+			a = 2
+			`,
+			ExpectedObject: &object.Number{Value: 2},
+		},
 	}
 
 	for _, tc := range tt {

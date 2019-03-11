@@ -47,7 +47,7 @@ func Floor(args ...object.Object) object.Object {
 
 func numberOperation(name string, fn func(float64) float64, args ...object.Object) object.Object {
 	if len(args) > 1 || len(args) == 0 {
-		return object.Error("built-in '%s' function only takes one arguments", name)
+		return object.Error("built-in '%s' function only takes one argument(s)", name)
 	}
 
 	switch obj := args[0].(type) {

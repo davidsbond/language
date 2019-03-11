@@ -29,19 +29,7 @@ func (s *Scope) NewChildScope() *Scope {
 // Set attempts to set a value in the current scope using the given
 // name.
 func (s *Scope) Set(name string, val Object) Object {
-	obj := s.Get(name)
-
-	if obj == nil {
-		s.objects[name] = val
-		return val
-	}
-
-	switch object := obj.(type) {
-	case *Constant:
-		return Error("constant %s cannot be redefined", name)
-	case *Atomic:
-		object.Set(val)
-	}
+	s.objects[name] = val
 
 	return val
 }

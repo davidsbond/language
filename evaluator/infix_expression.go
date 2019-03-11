@@ -3,6 +3,7 @@ package evaluator
 import (
 	"github.com/davidsbond/dave/ast"
 	"github.com/davidsbond/dave/object"
+	"github.com/davidsbond/dave/token"
 )
 
 func evaluateInfixExpression(node *ast.InfixExpression, scope *object.Scope) object.Object {
@@ -16,6 +17,20 @@ func evaluateInfixExpression(node *ast.InfixExpression, scope *object.Scope) obj
 
 	if right.Type() == object.TypeError {
 		return right
+	}
+
+	if ident, ok := node.Left.(*ast.Identifier); node.Operator == token.ASSIGN && ok {
+		if obj := scope.Get(ident.Value); obj != nil {
+			switch val := obj.(type) {
+			case *object.Constant:
+				return object.Error("cannot reassign constant '%s'", ident.Value)
+			case *object.Atomic:
+				val.Set(right)
+				return right
+			}
+		}
+
+		return scope.Set(ident.Value, right)
 	}
 
 	switch {

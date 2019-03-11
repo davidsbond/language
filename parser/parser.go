@@ -42,17 +42,17 @@ var (
 		token.COMMENT:  LOWEST,
 		token.EQUALS:   EQUALS,
 		token.NOTEQ:    EQUALS,
-		token.ASSIGN:   EQUALS,
 		token.PLUS:     SUM,
 		token.MINUS:    SUM,
 		token.LT:       LESSGREATER,
 		token.GT:       LESSGREATER,
 		token.ASTERISK: PRODUCT,
-		token.POW:      PRODUCT,
 		token.SLASH:    PRODUCT,
 		token.MOD:      PRODUCT,
 		token.LPAREN:   CALL,
 		token.LBRACKET: INDEX,
+		token.POW:      INDEX,
+		token.ASSIGN:   INDEX,
 	}
 )
 
@@ -94,6 +94,7 @@ func New(lexer *lexer.Lexer) (parser *Parser) {
 		token.LBRACKET: parser.parseArrayLiteral,
 		token.BANG:     parser.parsePrefixExpression,
 		token.MINUS:    parser.parsePrefixExpression,
+		token.LPAREN:   parser.parseGroupedExpression,
 	}
 
 	parser.infixParsers = map[token.Type]infixParseFn{
@@ -109,6 +110,7 @@ func New(lexer *lexer.Lexer) (parser *Parser) {
 		token.NOTEQ:    parser.parseInfixExpression,
 		token.LBRACKET: parser.parseIndexExpression,
 		token.POW:      parser.parseInfixExpression,
+		token.ASSIGN:   parser.parseInfixExpression,
 	}
 
 	parser.nextToken()
@@ -199,6 +201,18 @@ func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
 		Token:      p.currentToken,
 		Expression: p.parseExpression(LOWEST),
 	}
+}
+
+func (p *Parser) parseGroupedExpression() ast.Node {
+	p.nextToken()
+
+	exp := p.parseExpression(LOWEST)
+
+	if !p.expectPeek(token.RPAREN) {
+		return nil
+	}
+
+	return exp
 }
 
 func (p *Parser) parseExpressionList(end token.Type) []ast.Node {

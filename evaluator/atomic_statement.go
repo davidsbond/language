@@ -12,5 +12,10 @@ func evaluateAtomicStatement(node *ast.AtomicStatement, scope *object.Scope) obj
 		return val
 	}
 
-	return scope.Set(node.Name.Value, object.MakeAtomic(val))
+	switch val.(type) {
+	case object.Builtin:
+		return object.Error("built-in functions cannot be used as variables")
+	default:
+		return scope.Set(node.Name.Value, object.MakeAtomic(val))
+	}
 }
