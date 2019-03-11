@@ -1,9 +1,9 @@
 package parser_test
 
 import (
+	"bufio"
 	"github.com/davidsbond/dave/token"
 	"github.com/stretchr/testify/assert"
-	"bufio"
 	"strings"
 	"testing"
 
@@ -16,14 +16,14 @@ func TestParser_StringLiteral(t *testing.T) {
 	t.Parallel()
 
 	tt := []struct {
-		Name string
-		Expression        string
+		Name            string
+		Expression      string
 		ExpectedLiteral *ast.StringLiteral
 	}{
 		{
-			Name: "It should parse string literals",
-			Expression:        `"test"`,
-			ExpectedLiteral: &ast.StringLiteral {
+			Name:       "It should parse string literals",
+			Expression: `"test"`,
+			ExpectedLiteral: &ast.StringLiteral{
 				Token: token.New("1", token.STRING, 0, 0),
 				Value: "test",
 			},
@@ -39,13 +39,13 @@ func TestParser_StringLiteral(t *testing.T) {
 			result, _ := parser.Parse()
 
 			assert.Len(t, result.Nodes, 1)
-			
+
 			stmt, ok := result.Nodes[0].(*ast.ExpressionStatement)
 			assert.True(t, ok)
 
 			lit, ok := stmt.Expression.(*ast.StringLiteral)
 			assert.True(t, ok)
-			
+
 			assert.Equal(t, tc.ExpectedLiteral.String(), lit.String())
 		})
 	}

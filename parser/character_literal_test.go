@@ -37,9 +37,9 @@ func TestParser_CharacterLiteral(t *testing.T) {
 			lex, _ := lexer.New(rd)
 			parser := parser.New(lex)
 			result, _ := parser.Parse()
-		
+
 			assert.Len(t, result.Nodes, 1)
-			
+
 			stmt, ok := result.Nodes[0].(*ast.ExpressionStatement)
 			assert.True(t, ok)
 
