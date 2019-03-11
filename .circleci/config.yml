@@ -8,7 +8,6 @@ jobs:
       GOCACHE: "/tmp/go/cache"
     docker:
       - image: circleci/golang
-    working_directory: /src
     steps:
       - checkout
       # Restore the cache from the previous build number, this way we can cache
