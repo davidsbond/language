@@ -17,7 +17,9 @@ jobs:
             - gocache-{{ .Branch }}-{{ .Environment.CIRCLE_PREVIOUS_BUILD_NUM }}
       - run:
           name: Run tests
-          command: go test ./...
+          command: go test -v ./... | go-junit-report > /tmp/test-results/report.xml
+      - store_test_results:
+          path: /tmp/test-results
 
       # Save the cache with the current build number to be picked up by the next build
       # for this branch.
