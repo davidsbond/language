@@ -49,6 +49,8 @@ func Evaluate(node ast.Node, scope *object.Scope) object.Object {
 		return evaluateCallExpression(node, scope)
 	case *ast.PrefixExpression:
 		return evaluatePrefixExpression(node, scope)
+	case *ast.IndexExpression:
+		return evaluateIndexExpression(node, scope)
 	case *ast.StringLiteral:
 		return &object.String{Value: node.Value}
 	case *ast.NumberLiteral:
