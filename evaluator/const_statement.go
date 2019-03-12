@@ -12,10 +12,5 @@ func evaluateConstStatement(node *ast.ConstStatement, scope *object.Scope) objec
 		return val
 	}
 
-	switch val.(type) {
-	case object.Builtin:
-		return object.Error("built-in functions cannot be used as variables")
-	default:
-		return scope.Set(node.Name.Value, &object.Constant{Value: val})
-	}
+	return scope.Set(node.Name.Value, &object.Constant{Value: val})
 }

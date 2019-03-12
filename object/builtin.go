@@ -18,5 +18,5 @@ func (bi Builtin) Clone() Object {
 }
 
 func (bi Builtin) String() string {
-	return "built-in function"
+	return "Function"
 }

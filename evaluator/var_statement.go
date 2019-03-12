@@ -12,10 +12,5 @@ func evaluateVarStatement(node *ast.VarStatement, scope *object.Scope) object.Ob
 		return val
 	}
 
-	switch val.(type) {
-	case object.Builtin:
-		return object.Error("built-in functions cannot be used as variables")
-	default:
-		return scope.Set(node.Name.Value, val)
-	}
+	return scope.Set(node.Name.Value, val)
 }
