@@ -4,6 +4,8 @@
 package evaluator
 
 import (
+	"math"
+
 	"github.com/davidsbond/dave/ast"
 	"github.com/davidsbond/dave/builtin"
 	"github.com/davidsbond/dave/object"
@@ -24,9 +26,13 @@ var (
 		"tan":   builtin.Tan,
 		"sin":   builtin.Sin,
 		"log":   builtin.Log,
-		"sqrt":  builtin.Sqrt,
 		"ceil":  builtin.Ceil,
 		"floor": builtin.Floor,
+	}
+
+	values = map[string]object.Object{
+		"π": &object.Number{Value: math.Pi},
+		"∞": &object.Number{Value: math.Inf(0)},
 	}
 
 	// NULL is used as the global null object

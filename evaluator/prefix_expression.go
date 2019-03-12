@@ -1,6 +1,8 @@
 package evaluator
 
 import (
+	"math"
+
 	"github.com/davidsbond/dave/ast"
 	"github.com/davidsbond/dave/object"
 	"github.com/davidsbond/dave/token"
@@ -18,8 +20,23 @@ func evaluatePrefixExpression(node *ast.PrefixExpression, scope *object.Scope) o
 		return evaluateBangOperatorExpression(right)
 	case token.MINUS:
 		return evaluateMinusPrefixOperatorExpression(right)
+	case token.SQRT:
+		return evaluateSqrtPrefixOperatorExpression(right)
 	default:
 		return object.Error("type %s does not support operator %s", right.Type(), node.Operator)
+	}
+}
+
+func evaluateSqrtPrefixOperatorExpression(right object.Object) object.Object {
+	switch val := right.(type) {
+	case *object.Number:
+		return &object.Number{Value: math.Sqrt(val.Value)}
+	case *object.Atomic:
+		return evaluateSqrtPrefixOperatorExpression(val.Value())
+	case *object.Constant:
+		return evaluateSqrtPrefixOperatorExpression(val.Value)
+	default:
+		return object.Error("type %s does not support operator '√'", right.Type())
 	}
 }
 

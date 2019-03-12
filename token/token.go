@@ -116,6 +116,9 @@ const (
 
 	// DEC is the token type used for decrementing
 	DEC = "--"
+
+	// SQRT is the token type for square-root characters.
+	SQRT = "√"
 )
 
 var (

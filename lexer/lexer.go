@@ -97,6 +97,8 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 		tok = token.New(token.RBRACKET, token.RBRACKET, l.line, l.column)
 	case '^':
 		tok = token.New(token.POW, token.POW, l.line, l.column)
+	case '√':
+		tok = token.New(token.SQRT, token.SQRT, l.line, l.column)
 	case '/':
 		var next rune
 
@@ -192,7 +194,11 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 		)
 
 	default:
-		if isLetter(l.current) {
+		// Check if it's a single character identifier, like pi
+		if isCharIdentifier(l.current) {
+			tok = token.New(string(l.current), token.IDENT, l.line, l.column)
+		} else if isLetter(l.current) {
+			// Otherwise, check if we have a word for a function call or variable name.
 			var ident string
 
 			// Read the identifier and check if it's a keyword.
@@ -201,6 +207,7 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 			tok = token.New(ident, typ, l.line, l.column)
 
 		} else if isDigit(l.current) {
+			// Otherwise, check if we have a numerical value
 			var num string
 
 			// Read the number and produce the token
@@ -285,6 +292,17 @@ func (l *Lexer) readNumber() (num string, err error) {
 
 	num = out.String()
 	return
+}
+
+func isCharIdentifier(ch rune) bool {
+	identifiers := map[rune]bool{
+		'∞': true,
+		'π': true,
+	}
+
+	_, ok := identifiers[ch]
+
+	return ok
 }
 
 func isLetter(ch rune) bool {
