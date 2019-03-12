@@ -1,25 +1,16 @@
 package parser_test
 
 import (
-	"bufio"
-	"strings"
 	"testing"
 
 	"github.com/davidsbond/dave/ast"
-	"github.com/davidsbond/dave/lexer"
-	"github.com/davidsbond/dave/parser"
 	"github.com/davidsbond/dave/token"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestParser_FunctionLiteral(t *testing.T) {
 	t.Parallel()
 
-	tt := []struct {
-		Name            string
-		Expression      string
-		ExpectedLiteral ast.Node
-	}{
+	tt := []ParserTest{
 		{
 			Name: "It should parse valid inline function literals",
 			Expression: `
@@ -27,7 +18,7 @@ func TestParser_FunctionLiteral(t *testing.T) {
 				return a + b
 			}
 			`,
-			ExpectedLiteral: &ast.VarStatement{
+			ExpectedNode: &ast.VarStatement{
 				Token: token.New(token.VAR, token.VAR, 0, 0),
 				Name: &ast.Identifier{
 					Token: token.New("add", token.VAR, 0, 0),
@@ -77,7 +68,7 @@ func TestParser_FunctionLiteral(t *testing.T) {
 			func add(a, b) {
 				return a + b
 			}`,
-			ExpectedLiteral: &ast.FunctionLiteral{
+			ExpectedNode: &ast.FunctionLiteral{
 				Name: &ast.Identifier{
 					Token: token.New("add", token.IDENT, 0, 0),
 					Value: "add",
@@ -117,18 +108,6 @@ func TestParser_FunctionLiteral(t *testing.T) {
 	}
 
 	for _, tc := range tt {
-		t.Run(tc.Name, func(t *testing.T) {
-			rd := bufio.NewReader(strings.NewReader(tc.Expression))
-			lex, _ := lexer.New(rd)
-			parser := parser.New(lex)
-
-			result, _ := parser.Parse()
-
-			assert.Len(t, result.Nodes, 1)
-
-			stmt := result.Nodes[0]
-
-			assert.Equal(t, tc.ExpectedLiteral.String(), stmt.String())
-		})
+		tc.Run(t)
 	}
 }
