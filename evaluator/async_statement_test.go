@@ -1,32 +1,20 @@
 package evaluator_test
 
 import (
-	"bufio"
-	"strings"
 	"testing"
 
 	"github.com/davidsbond/dave/ast"
-	"github.com/davidsbond/dave/evaluator"
-	"github.com/davidsbond/dave/lexer"
 	"github.com/davidsbond/dave/object"
-	"github.com/davidsbond/dave/parser"
 	"github.com/davidsbond/dave/token"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestEvaluator_AsyncStatement(t *testing.T) {
 	t.Parallel()
 
-	tt := []struct {
-		Name           string
-		Expression     string
-		ExpectedKey    string
-		ExpectedObject object.Object
-	}{
+	tt := []EvaluatorTest{
 		{
-			Name:        "It should evaluate async function declarations",
-			Expression:  "async func add(a, b) { return a + b }",
-			ExpectedKey: "add",
+			Name:       "It should evaluate async function declarations",
+			Expression: "async func add(a, b) { return a + b }",
 			ExpectedObject: &object.Function{
 				Name: &ast.Identifier{
 					Value: "add",
@@ -68,21 +56,6 @@ func TestEvaluator_AsyncStatement(t *testing.T) {
 	}
 
 	for _, tc := range tt {
-		t.Run(tc.Name, func(t *testing.T) {
-			rd := bufio.NewReader(strings.NewReader(tc.Expression))
-			lex, _ := lexer.New(rd)
-			parser := parser.New(lex)
-			ast, _ := parser.Parse()
-
-			scope := object.NewScope()
-			evaluator.Evaluate(ast, scope)
-
-			actual := scope.Get(tc.ExpectedKey)
-
-			assert.NotNil(t, actual)
-
-			assert.Equal(t, tc.ExpectedObject.Type(), actual.Type())
-			assert.Equal(t, tc.ExpectedObject.String(), actual.String())
-		})
+		tc.Run(t)
 	}
 }

@@ -1,25 +1,15 @@
 package evaluator_test
 
 import (
-	"bufio"
-	"strings"
 	"testing"
 
-	"github.com/davidsbond/dave/evaluator"
-	"github.com/davidsbond/dave/lexer"
 	"github.com/davidsbond/dave/object"
-	"github.com/davidsbond/dave/parser"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestEvaluator_HashLiteral(t *testing.T) {
 	t.Parallel()
 
-	tt := []struct {
-		Name           string
-		Expression     string
-		ExpectedObject *object.Hash
-	}{
+	tt := []EvaluatorTest{
 		{
 			Name:       "It should evaluate hash literals",
 			Expression: `{ "a": 1, "b": "test", "c": 't' }`,
@@ -55,29 +45,6 @@ func TestEvaluator_HashLiteral(t *testing.T) {
 	}
 
 	for _, tc := range tt {
-		t.Run(tc.Name, func(t *testing.T) {
-			rd := bufio.NewReader(strings.NewReader(tc.Expression))
-			lex, _ := lexer.New(rd)
-			parser := parser.New(lex)
-			ast, _ := parser.Parse()
-
-			scope := object.NewScope()
-			actual := evaluator.Evaluate(ast, scope)
-
-			assert.NotNil(t, actual)
-
-			byKey := make(map[float64]object.Object)
-			for key, val := range actual.(*object.Hash).Pairs {
-				byKey[key.Value] = val.Value
-			}
-
-			for key, expected := range tc.ExpectedObject.Pairs {
-				actual, ok := byKey[key.Value]
-
-				assert.True(t, ok)
-				assert.Equal(t, expected.Value.String(), actual.String())
-				assert.Equal(t, expected.Value.Type(), actual.Type())
-			}
-		})
+		tc.Run(t)
 	}
 }
