@@ -1,6 +1,7 @@
 package evaluator
 
 import (
+	"github.com/davidsbond/dave/token"
 	"github.com/davidsbond/dave/ast"
 	"github.com/davidsbond/dave/object"
 )
@@ -32,9 +33,9 @@ func evaluatePostfix(operator string, obj object.Object) object.Object {
 	}
 
 	switch operator {
-	case "++":
+	case token.INC:
 		return &object.Number{Value: num.Value + 1}
-	case "--":
+	case token.DEC:
 		return &object.Number{Value: num.Value - 1}
 	default:
 		return object.Error("type Number does not support operator %s", operator)

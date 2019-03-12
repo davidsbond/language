@@ -12,7 +12,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestEvaluator_PrefixExpression(t *testing.T) {
+func TestEvaluator_PostfixExpression(t *testing.T) {
 	t.Parallel()
 
 	tt := []struct {
@@ -21,19 +21,20 @@ func TestEvaluator_PrefixExpression(t *testing.T) {
 		ExpectedObject object.Object
 	}{
 		{
-			Name:           "It should evaluate minus prefixes",
-			Expression:     "-1",
-			ExpectedObject: &object.Number{Value: -1},
+			Name: "It should evaluate decremental postfixes",
+			Expression: `
+			var a = 1
+			a--
+			`,
+			ExpectedObject: &object.Number{Value: 0},
 		},
 		{
-			Name:           "It should evaluate bang prefixes",
-			Expression:     "!true",
-			ExpectedObject: &object.Boolean{Value: false},
-		},
-		{
-			Name:           "It should evaluate sqrt prefixes",
-			Expression:     "√4",
-			ExpectedObject:  &object.Number{Value: 2},
+			Name: "It should evaluate incremental postfixes",
+			Expression: `
+			var a = 1
+			a++
+			`,
+			ExpectedObject: &object.Number{Value: 2},
 		},
 	}
 
