@@ -35,6 +35,33 @@ func TestLexer_NextToken(t *testing.T) {
 			},
 		},
 		{
+			Expression: "^",
+			ExpectedToken: &token.Token{
+				Literal: token.POW,
+				Type:    token.POW,
+				Line:    0,
+				Column:  0,
+			},
+		},
+		{
+			Expression: "∞",
+			ExpectedToken: &token.Token{
+				Literal: "∞",
+				Type:    token.IDENT,
+				Line:    0,
+				Column:  0,
+			},
+		},
+		{
+			Expression: "√",
+			ExpectedToken: &token.Token{
+				Literal: token.SQRT,
+				Type:    token.SQRT,
+				Line:    0,
+				Column:  0,
+			},
+		},
+		{
 			Expression: "!",
 			ExpectedToken: &token.Token{
 				Literal: token.BANG,

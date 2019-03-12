@@ -65,7 +65,6 @@ func TestParser_AtomicStatement(t *testing.T) {
 				},
 			},
 		},
-
 		{
 			Name:       "It should parse atomic array declarations",
 			Expression: `atomic test = [1, "test", 't']`,
