@@ -5,7 +5,7 @@ import (
 	"github.com/davidsbond/dave/object"
 )
 
-func evaluateVarStatement(node *ast.VarStatement, scope *object.Scope) object.Object {
+func varStatement(node *ast.VarStatement, scope *object.Scope) object.Object {
 	val := Evaluate(node.Value, scope)
 
 	if isError(val) {

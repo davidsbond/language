@@ -7,6 +7,10 @@ import (
 )
 
 type (
+	// The IndexExpression type represents an index expression in the source code.
+	// For example:
+	// var test = "test"
+	// var e = test[1]
 	IndexExpression struct {
 		Token *token.Token
 		Left  Node

@@ -2,13 +2,11 @@ package lexer_test
 
 import (
 	"bufio"
-	"io"
 	"strings"
 	"testing"
 
 	"github.com/davidsbond/dave/lexer"
 	"github.com/davidsbond/dave/token"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestLexer_NextToken(t *testing.T) {
@@ -30,6 +28,33 @@ func TestLexer_NextToken(t *testing.T) {
 			ExpectedToken: &token.Token{
 				Literal: " A comment",
 				Type:    token.COMMENT,
+				Line:    0,
+				Column:  0,
+			},
+		},
+		{
+			Expression: "^",
+			ExpectedToken: &token.Token{
+				Literal: token.POW,
+				Type:    token.POW,
+				Line:    0,
+				Column:  0,
+			},
+		},
+		{
+			Expression: "∞",
+			ExpectedToken: &token.Token{
+				Literal: "∞",
+				Type:    token.IDENT,
+				Line:    0,
+				Column:  0,
+			},
+		},
+		{
+			Expression: "√",
+			ExpectedToken: &token.Token{
+				Literal: token.SQRT,
+				Type:    token.SQRT,
 				Line:    0,
 				Column:  0,
 			},
@@ -322,16 +347,15 @@ func TestLexer_NextToken(t *testing.T) {
 			lex, _ := lexer.New(rd)
 
 			expected := tc.ExpectedToken
-			actual, err := lex.NextToken()
+			actual, _ := lex.NextToken()
 
-			if err != io.EOF {
-				assert.Nil(t, err)
+			if expected.Literal != actual.Literal {
+				t.Fatalf("expected literal %s, got %s", expected.Literal, actual.Literal)
 			}
 
-			assert.Equal(t, expected.Literal, actual.Literal)
-			assert.Equal(t, expected.Type, actual.Type)
-			// assert.Equal(t, expected.Line, actual.Line)
-			// assert.Equal(t, expected.Column, actual.Column)
+			if expected.Type != actual.Type {
+				t.Fatalf("expected type %s, got %s", expected.Type, actual.Type)
+			}
 		})
 	}
 }

@@ -97,6 +97,7 @@ func New(lexer *lexer.Lexer) (parser *Parser) {
 		token.BANG:     parser.parsePrefixExpression,
 		token.MINUS:    parser.parsePrefixExpression,
 		token.LPAREN:   parser.parseGroupedExpression,
+		token.SQRT:     parser.parsePrefixExpression,
 	}
 
 	parser.infixParsers = map[token.Type]infixParseFn{

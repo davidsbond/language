@@ -4,6 +4,8 @@
 package evaluator
 
 import (
+	"math"
+
 	"github.com/davidsbond/dave/ast"
 	"github.com/davidsbond/dave/builtin"
 	"github.com/davidsbond/dave/object"
@@ -24,9 +26,13 @@ var (
 		"tan":   builtin.Tan,
 		"sin":   builtin.Sin,
 		"log":   builtin.Log,
-		"sqrt":  builtin.Sqrt,
 		"ceil":  builtin.Ceil,
 		"floor": builtin.Floor,
+	}
+
+	values = map[string]object.Object{
+		"π": &object.Number{Value: math.Pi},
+		"∞": &object.Number{Value: math.Inf(0)},
 	}
 
 	// NULL is used as the global null object
@@ -39,30 +45,30 @@ var (
 	FALSE = &object.Boolean{Value: false}
 )
 
-// Evaluate attempts to evaluate the given node using the provided scope and return
+// Evaluate attempts to  the given node using the provided scope and return
 // an object.
 func Evaluate(node ast.Node, scope *object.Scope) object.Object {
 	switch node := node.(type) {
 	case *ast.AST:
-		return evaluateAST(node, scope)
+		return evalAST(node, scope)
 	case *ast.ExpressionStatement:
 		return Evaluate(node.Expression, scope)
 	case *ast.InfixExpression:
-		return evaluateInfixExpression(node, scope)
+		return infixExpression(node, scope)
 	case *ast.VarStatement:
-		return evaluateVarStatement(node, scope)
+		return varStatement(node, scope)
 	case *ast.ConstStatement:
-		return evaluateConstStatement(node, scope)
+		return constStatement(node, scope)
 	case *ast.AtomicStatement:
-		return evaluateAtomicStatement(node, scope)
+		return atomicStatement(node, scope)
 	case *ast.BlockStatement:
-		return evaluateBlockStatement(node, scope)
+		return blockStatement(node, scope)
 	case *ast.CallExpression:
-		return evaluateCallExpression(node, scope)
+		return callExpression(node, scope)
 	case *ast.PrefixExpression:
-		return evaluatePrefixExpression(node, scope)
+		return prefixExpression(node, scope)
 	case *ast.IndexExpression:
-		return evaluateIndexExpression(node, scope)
+		return indexExpression(node, scope)
 	case *ast.StringLiteral:
 		return &object.String{Value: node.Value}
 	case *ast.NumberLiteral:
@@ -70,21 +76,21 @@ func Evaluate(node ast.Node, scope *object.Scope) object.Object {
 	case *ast.CharacterLiteral:
 		return &object.Character{Value: node.Value}
 	case *ast.FunctionLiteral:
-		return evaluateFunctionLiteral(node, scope)
+		return functionLiteral(node, scope)
 	case *ast.ReturnStatement:
 		return &object.ReturnValue{Value: Evaluate(node.ReturnValue, scope)}
 	case *ast.Identifier:
-		return evaluateIdentifier(node, scope)
+		return identifier(node, scope)
 	case *ast.AsyncStatement:
-		return evaluateAsyncStatement(node, scope)
+		return asyncStatement(node, scope)
 	case *ast.AwaitStatement:
-		return evaluateAwaitStatement(node, scope)
+		return awaitStatement(node, scope)
 	case *ast.ArrayLiteral:
-		return evaluateArrayLiteral(node, scope)
+		return arrayLiteral(node, scope)
 	case *ast.HashLiteral:
-		return evaluateHashLiteral(node, scope)
+		return hashLiteral(node, scope)
 	case *ast.PostfixExpression:
-		return evaluatePostfixExpression(node, scope)
+		return postfixExpression(node, scope)
 	case *ast.Comment:
 		return nil
 	case *ast.BooleanLiteral:
@@ -94,13 +100,13 @@ func Evaluate(node ast.Node, scope *object.Scope) object.Object {
 
 		return FALSE
 	case nil:
-		return object.Error("cannot evaluate nil node")
+		return object.Error("cannot  nil node")
 	default:
 		return object.Error("unsupported node type %s", node.String())
 	}
 }
 
-func evaluateAST(ast *ast.AST, scope *object.Scope) object.Object {
+func evalAST(ast *ast.AST, scope *object.Scope) object.Object {
 	var result object.Object
 
 	for _, node := range ast.Nodes {

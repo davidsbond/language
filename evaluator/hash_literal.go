@@ -5,7 +5,7 @@ import (
 	"github.com/davidsbond/dave/object"
 )
 
-func evaluateHashLiteral(node *ast.HashLiteral, scope *object.Scope) object.Object {
+func hashLiteral(node *ast.HashLiteral, scope *object.Scope) object.Object {
 	pairs := make(map[object.HashKey]object.HashPair)
 
 	for k, v := range node.Pairs {

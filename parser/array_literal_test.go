@@ -1,30 +1,21 @@
 package parser_test
 
 import (
-	"bufio"
-	"strings"
 	"testing"
 
 	"github.com/davidsbond/dave/token"
-	"github.com/stretchr/testify/assert"
 
 	"github.com/davidsbond/dave/ast"
-	"github.com/davidsbond/dave/lexer"
-	"github.com/davidsbond/dave/parser"
 )
 
 func TestParser_ArrayLiteral(t *testing.T) {
 	t.Parallel()
 
-	tt := []struct {
-		Name            string
-		Expression      string
-		ExpectedLiteral *ast.ArrayLiteral
-	}{
+	tt := []ParserTest{
 		{
 			Name:       "It should parse valid array literals",
 			Expression: `[1, "test", 't']`,
-			ExpectedLiteral: &ast.ArrayLiteral{
+			ExpectedNode: &ast.ArrayLiteral{
 				Token: token.New(token.TRUE, token.TRUE, 0, 0),
 				Elements: []ast.Node{
 					&ast.NumberLiteral{
@@ -45,22 +36,6 @@ func TestParser_ArrayLiteral(t *testing.T) {
 	}
 
 	for _, tc := range tt {
-		t.Run(tc.Name, func(t *testing.T) {
-			rd := bufio.NewReader(strings.NewReader(tc.Expression))
-			lex, _ := lexer.New(rd)
-			parser := parser.New(lex)
-
-			result, _ := parser.Parse()
-
-			assert.Len(t, result.Nodes, 1)
-
-			stmt, ok := result.Nodes[0].(*ast.ExpressionStatement)
-			assert.True(t, ok)
-
-			lit, ok := stmt.Expression.(*ast.ArrayLiteral)
-			assert.True(t, ok)
-
-			assert.Equal(t, tc.ExpectedLiteral.String(), lit.String())
-		})
+		tc.Run(t)
 	}
 }

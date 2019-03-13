@@ -7,7 +7,7 @@ import (
 	"github.com/davidsbond/dave/token"
 )
 
-func evaluateStringInfixExpression(operator string, left, right object.Object) object.Object {
+func stringInfixExpression(operator string, left, right object.Object) object.Object {
 	// Get the *object.String instances for both the left and right objects. Handle
 	// atomic/constants appropriately.
 	trueLeft, err := getStringFromObject(left)

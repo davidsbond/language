@@ -30,11 +30,6 @@ func Log(args ...object.Object) object.Object {
 	return numberOperation("log", math.Log, args...)
 }
 
-// Sqrt provides the ability to calculate the square root of a given number.
-func Sqrt(args ...object.Object) object.Object {
-	return numberOperation("sqrt", math.Sqrt, args...)
-}
-
 // Ceil rounds up a given number to the least integer value greather than it.
 func Ceil(args ...object.Object) object.Object {
 	return numberOperation("ceil", math.Ceil, args...)

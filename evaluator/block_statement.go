@@ -5,7 +5,7 @@ import (
 	"github.com/davidsbond/dave/object"
 )
 
-func evaluateBlockStatement(block *ast.BlockStatement, scope *object.Scope) object.Object {
+func blockStatement(block *ast.BlockStatement, scope *object.Scope) object.Object {
 	var result object.Object
 
 	for _, statement := range block.Statements {

@@ -7,7 +7,7 @@ import (
 	"github.com/davidsbond/dave/object"
 )
 
-func evaluateIndexExpression(node *ast.IndexExpression, scope *object.Scope) object.Object {
+func indexExpression(node *ast.IndexExpression, scope *object.Scope) object.Object {
 	left := Evaluate(node.Left, scope)
 
 	if isError(left) {
@@ -28,17 +28,17 @@ func evaluateIndexExpression(node *ast.IndexExpression, scope *object.Scope) obj
 
 	switch obj := container.(type) {
 	case *object.String:
-		return evaluateStringIndexExpression(obj, index)
+		return stringIndexExpression(obj, index)
 	case *object.Array:
-		return evaluateArrayIndexExpression(obj, index)
+		return arrayIndexExpression(obj, index)
 	case *object.Hash:
-		return evaluateHashIndexExpression(obj, index)
+		return hashIndexExpression(obj, index)
 	default:
 		return object.Error("type %s does not support indexing", container.Type())
 	}
 }
 
-func evaluateHashIndexExpression(hash *object.Hash, index object.Object) object.Object {
+func hashIndexExpression(hash *object.Hash, index object.Object) object.Object {
 	k, ok := index.(object.Hashable)
 
 	if !ok {
@@ -54,7 +54,7 @@ func evaluateHashIndexExpression(hash *object.Hash, index object.Object) object.
 	return pair.Value
 }
 
-func evaluateStringIndexExpression(str *object.String, index object.Object) object.Object {
+func stringIndexExpression(str *object.String, index object.Object) object.Object {
 	num, err := getNumberFromObject(index)
 
 	if err != nil {
@@ -69,7 +69,7 @@ func evaluateStringIndexExpression(str *object.String, index object.Object) obje
 	return &object.Character{Value: rune(str.Value[int(idx)])}
 }
 
-func evaluateArrayIndexExpression(arr *object.Array, index object.Object) object.Object {
+func arrayIndexExpression(arr *object.Array, index object.Object) object.Object {
 	num, err := getNumberFromObject(index)
 
 	if err != nil {

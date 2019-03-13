@@ -3,11 +3,12 @@ package evaluator
 import (
 	"github.com/davidsbond/dave/ast"
 	"github.com/davidsbond/dave/object"
+	"github.com/davidsbond/dave/token"
 )
 
-func evaluatePostfixExpression(node *ast.PostfixExpression, scope *object.Scope) object.Object {
+func postfixExpression(node *ast.PostfixExpression, scope *object.Scope) object.Object {
 	val := scope.Get(node.Left.Value)
-	newVal := evaluatePostfix(node.Operator, val)
+	newVal := postfix(node.Operator, val)
 
 	if isError(newVal) {
 		return newVal
@@ -24,7 +25,7 @@ func evaluatePostfixExpression(node *ast.PostfixExpression, scope *object.Scope)
 	}
 }
 
-func evaluatePostfix(operator string, obj object.Object) object.Object {
+func postfix(operator string, obj object.Object) object.Object {
 	num, err := getNumberFromObject(obj)
 
 	if err != nil {
@@ -32,9 +33,9 @@ func evaluatePostfix(operator string, obj object.Object) object.Object {
 	}
 
 	switch operator {
-	case "++":
+	case token.INC:
 		return &object.Number{Value: num.Value + 1}
-	case "--":
+	case token.DEC:
 		return &object.Number{Value: num.Value - 1}
 	default:
 		return object.Error("type Number does not support operator %s", operator)

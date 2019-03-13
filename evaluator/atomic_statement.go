@@ -5,7 +5,7 @@ import (
 	"github.com/davidsbond/dave/object"
 )
 
-func evaluateAtomicStatement(node *ast.AtomicStatement, scope *object.Scope) object.Object {
+func atomicStatement(node *ast.AtomicStatement, scope *object.Scope) object.Object {
 	val := Evaluate(node.Value, scope)
 
 	if isError(val) {

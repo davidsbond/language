@@ -5,7 +5,6 @@ import (
 
 	"github.com/davidsbond/dave/builtin"
 	"github.com/davidsbond/dave/object"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestBuiltin_Type(t *testing.T) {
@@ -37,8 +36,7 @@ func TestBuiltin_Type(t *testing.T) {
 		t.Run(tc.Name, func(t *testing.T) {
 			result := builtin.Type(tc.Args...)
 
-			assert.Equal(t, tc.ExpectedObject.Type(), result.Type())
-			assert.Equal(t, tc.ExpectedObject.String(), result.String())
+			assertEqualObjects(t, tc.ExpectedObject, result)
 		})
 	}
 }

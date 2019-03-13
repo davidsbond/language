@@ -8,7 +8,7 @@ import (
 	"github.com/davidsbond/dave/token"
 )
 
-func evaluateNumberInfixExpression(operator string, left, right object.Object) object.Object {
+func numberInfixExpression(operator string, left, right object.Object) object.Object {
 	// Get the *object.Number instances for both the left and right objects. Handle
 	// atomic/constants appropriately.
 	trueLeft, err := getNumberFromObject(left)

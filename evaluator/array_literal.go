@@ -5,7 +5,7 @@ import (
 	"github.com/davidsbond/dave/object"
 )
 
-func evaluateArrayLiteral(node *ast.ArrayLiteral, scope *object.Scope) object.Object {
+func arrayLiteral(node *ast.ArrayLiteral, scope *object.Scope) object.Object {
 	var elements []object.Object
 
 	for _, elem := range node.Elements {
