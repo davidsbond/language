@@ -91,6 +91,8 @@ func Evaluate(node ast.Node, scope *object.Scope) object.Object {
 		return hashLiteral(node, scope)
 	case *ast.PostfixExpression:
 		return postfixExpression(node, scope)
+	case *ast.IfExpression:
+		return ifExpression(node, scope)
 	case *ast.Comment:
 		return nil
 	case *ast.BooleanLiteral:
