@@ -1,12 +1,5 @@
 package object
 
-import "fmt"
-
-const (
-	// TypeConstant is the type wrapper for constant types.
-	TypeConstant = "Const<%v>"
-)
-
 type (
 	// The Constant type is a wrapper around Object that indicates the
 	// object is immutable.
@@ -17,7 +10,7 @@ type (
 
 // Type returns the type of the underlying object.
 func (c *Constant) Type() Type {
-	return Type(fmt.Sprintf(TypeConstant, c.Value.Type()))
+	return c.Value.Type()
 }
 
 // Clone creates a copy of the current object that can be used

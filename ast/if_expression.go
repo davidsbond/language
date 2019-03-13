@@ -7,6 +7,14 @@ import (
 )
 
 type (
+	// The IfExpression type represents an if statement in the source code. It consists
+	// of a condition, consequence and optional consequence.
+	// For example:
+	// if (a == 0) { <-- Condition
+	//   return -1   <-- Consequence
+	// } else {
+	//   return a    <-- Alternative
+	// }
 	IfExpression struct {
 		Token       *token.Token
 		Condition   Node

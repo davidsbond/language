@@ -1,13 +1,7 @@
 package object
 
 import (
-	"fmt"
 	"sync"
-)
-
-const (
-	// TypeAtomic is the type wrapper for atomic types.
-	TypeAtomic = "Atomic<%s>"
 )
 
 type (
@@ -33,7 +27,7 @@ func (at *Atomic) Type() Type {
 	at.mutex.Lock()
 	defer at.mutex.Unlock()
 
-	return Type(fmt.Sprintf(TypeAtomic, at.value.Type()))
+	return at.value.Type()
 }
 
 // Set sets the atomic value
