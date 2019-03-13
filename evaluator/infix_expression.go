@@ -34,18 +34,22 @@ func infixExpression(node *ast.InfixExpression, scope *object.Scope) object.Obje
 	}
 
 	switch {
+	// 1 + 1
 	case left.Type() == object.TypeNumber && right.Type() == object.TypeNumber:
 		return numberInfixExpression(node.Operator, left, right)
+	// "a" + "a"
 	case left.Type() == object.TypeString && right.Type() == object.TypeString:
 		return stringInfixExpression(node.Operator, left, right)
+	// "a" + 'a'
 	case left.Type() == object.TypeString && right.Type() == object.TypeCharacter:
-		// TODO: append string to char
-		return nil
+		return characterStringInfixExpression(node.Operator, left, right)
+	// 'a' + "a"
 	case left.Type() == object.TypeCharacter && right.Type() == object.TypeString:
-		// TODO: append char to string
-		return nil
+		return characterStringInfixExpression(node.Operator, left, right)
+	// true == true
 	case left.Type() == object.TypeBoolean && right.Type() == object.TypeBoolean:
 		return booleanInfixExpression(node.Operator, left, right)
+	// 'a' + 'a'
 	case left.Type() == object.TypeCharacter && right.Type() == object.TypeCharacter:
 		return characterInfixExpression(node.Operator, left, right)
 	default:

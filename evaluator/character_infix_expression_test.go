@@ -45,6 +45,11 @@ func TestEvaluator_CharacterInfixExpression(t *testing.T) {
 			Expression:     `'a' == 'a'`,
 			ExpectedObject: &object.Boolean{Value: true},
 		},
+		{
+			Name:           "It should addition of char and string",
+			Expression:     `'a' + "a"`,
+			ExpectedObject: &object.String{Value: "aa"},
+		},
 	}
 
 	for _, tc := range tt {

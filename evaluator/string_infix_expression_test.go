@@ -20,6 +20,11 @@ func TestEvaluator_StringInfixExpression(t *testing.T) {
 			Expression:     `"a" == "a"`,
 			ExpectedObject: &object.Boolean{Value: true},
 		},
+		{
+			Name:           "It should addition of string and char",
+			Expression:     `"a" + 'a'`,
+			ExpectedObject: &object.String{Value: "aa"},
+		},
 	}
 
 	for _, tc := range tt {
