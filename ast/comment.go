@@ -7,6 +7,7 @@ import (
 )
 
 type (
+	// The Comment type represents a comment in the source code.
 	Comment struct {
 		Token *token.Token
 		Value string

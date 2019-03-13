@@ -7,6 +7,11 @@ import (
 )
 
 type (
+	// The PostfixExpression type represents a postfix expression in the source
+	// code. For example:
+	// var a = 1
+	// a++
+	// a--
 	PostfixExpression struct {
 		Token    *token.Token
 		Left     *Identifier
