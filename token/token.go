@@ -119,6 +119,12 @@ const (
 
 	// SQRT is the token type for square-root characters.
 	SQRT = "√"
+
+	// IF is the token type for if statements
+	IF = "if"
+
+	// ELSE is the token type for else statements
+	ELSE = "else"
 )
 
 var (
@@ -132,6 +138,8 @@ var (
 		"return": RETURN,
 		"true":   TRUE,
 		"var":    VAR,
+		"if":     IF,
+		"else":   ELSE,
 	}
 )
 
