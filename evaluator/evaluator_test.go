@@ -31,8 +31,8 @@ func (et *EvaluatorTest) Run(t *testing.T) {
 
 		switch expected := et.ExpectedObject.(type) {
 		default:
-			
-		assertEqualObjects(t, expected, actual)
+
+			assertEqualObjects(t, expected, actual)
 		case *object.Hash:
 			assertEqualHashes(t, expected, actual)
 		}
@@ -47,11 +47,11 @@ func assertEqualHashes(t *testing.T, expected *object.Hash, actual object.Object
 
 	for key, expected := range expected.Pairs {
 		actual, _ := byKey[key.Value]
-		
+
 		if expected.Value.Type() != actual.Type() {
 			t.Fatalf("expected object type %s, got %s", expected.Value.Type(), actual.Type())
 		}
-	
+
 		if expected.Value.String() != actual.String() {
 			t.Fatalf("expected %s, got %s", expected.Value.String(), actual.String())
 		}

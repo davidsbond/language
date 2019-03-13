@@ -12,8 +12,8 @@ import (
 
 type (
 	ParserTest struct {
-		Name               string
-		Expression         string
+		Name         string
+		Expression   string
 		ExpectedNode ast.Node
 	}
 )
@@ -27,7 +27,14 @@ func (pt *ParserTest) Run(t *testing.T) {
 		result, _ := parser.Parse()
 		node := result.Nodes[0]
 
-		if pt.ExpectedNode.String() != node.String() {
+		if _, ok := pt.ExpectedNode.(*ast.HashLiteral); ok {
+			for _, ch := range pt.ExpectedNode.String() {
+				if !strings.Contains(node.String(), string(ch)) {
+					t.Fatalf("expected rune %v in %s, but didn't find it", ch, node.String())
+					return
+				}
+			}
+		} else if pt.ExpectedNode.String() != node.String() {
 			t.Fatalf("expected %s, got %s", pt.ExpectedNode.String(), node.String())
 		}
 	})

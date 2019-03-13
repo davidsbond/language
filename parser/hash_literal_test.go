@@ -1,26 +1,16 @@
 package parser_test
 
 import (
-	"bufio"
-	"strings"
 	"testing"
 
-	"github.com/davidsbond/dave/token"
-	"github.com/stretchr/testify/assert"
-
 	"github.com/davidsbond/dave/ast"
-	"github.com/davidsbond/dave/lexer"
-	"github.com/davidsbond/dave/parser"
+	"github.com/davidsbond/dave/token"
 )
 
 func TestParser_HashLiteral(t *testing.T) {
 	t.Parallel()
 
-	tt := []struct {
-		Name            string
-		Expression      string
-		ExpectedLiteral *ast.HashLiteral
-	}{
+	tt := []ParserTest{
 		{
 			Name: "It should parse valid hash literals",
 			Expression: `{ 
@@ -28,7 +18,7 @@ func TestParser_HashLiteral(t *testing.T) {
 				"b": "test", 
 				"c": 't' 
 			}`,
-			ExpectedLiteral: &ast.HashLiteral{
+			ExpectedNode: &ast.HashLiteral{
 				Token: token.New(token.LBRACE, token.LBRACE, 0, 0),
 				Pairs: map[ast.Node]ast.Node{
 					&ast.StringLiteral{
@@ -58,32 +48,6 @@ func TestParser_HashLiteral(t *testing.T) {
 	}
 
 	for _, tc := range tt {
-		t.Run(tc.Name, func(t *testing.T) {
-			rd := bufio.NewReader(strings.NewReader(tc.Expression))
-			lex, _ := lexer.New(rd)
-			parser := parser.New(lex)
-
-			result, _ := parser.Parse()
-
-			assert.Len(t, result.Nodes, 1)
-
-			stmt, ok := result.Nodes[0].(*ast.ExpressionStatement)
-			assert.True(t, ok)
-
-			lit, ok := stmt.Expression.(*ast.HashLiteral)
-			assert.True(t, ok)
-
-			byString := make(map[string]ast.Node)
-			for key, val := range lit.Pairs {
-				byString[key.String()] = val
-			}
-
-			for key, expected := range tc.ExpectedLiteral.Pairs {
-				actual, ok := byString[key.String()]
-
-				assert.True(t, ok)
-				assert.Equal(t, expected.String(), actual.String())
-			}
-		})
+		tc.Run(t)
 	}
 }

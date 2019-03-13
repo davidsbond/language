@@ -1,9 +1,9 @@
 package evaluator
 
 import (
-	"github.com/davidsbond/dave/token"
 	"github.com/davidsbond/dave/ast"
 	"github.com/davidsbond/dave/object"
+	"github.com/davidsbond/dave/token"
 )
 
 func evaluatePostfixExpression(node *ast.PostfixExpression, scope *object.Scope) object.Object {
