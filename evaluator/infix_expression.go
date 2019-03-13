@@ -6,7 +6,7 @@ import (
 	"github.com/davidsbond/dave/token"
 )
 
-func evaluateInfixExpression(node *ast.InfixExpression, scope *object.Scope) object.Object {
+func infixExpression(node *ast.InfixExpression, scope *object.Scope) object.Object {
 	left := Evaluate(node.Left, scope)
 
 	if left.Type() == object.TypeError {
@@ -35,9 +35,9 @@ func evaluateInfixExpression(node *ast.InfixExpression, scope *object.Scope) obj
 
 	switch {
 	case left.Type() == object.TypeNumber && right.Type() == object.TypeNumber:
-		return evaluateNumberInfixExpression(node.Operator, left, right)
+		return numberInfixExpression(node.Operator, left, right)
 	case left.Type() == object.TypeString && right.Type() == object.TypeString:
-		return evaluateStringInfixExpression(node.Operator, left, right)
+		return stringInfixExpression(node.Operator, left, right)
 	case left.Type() == object.TypeString && right.Type() == object.TypeCharacter:
 		// TODO: append string to char
 		return nil
@@ -45,9 +45,9 @@ func evaluateInfixExpression(node *ast.InfixExpression, scope *object.Scope) obj
 		// TODO: append char to string
 		return nil
 	case left.Type() == object.TypeBoolean && right.Type() == object.TypeBoolean:
-		return evaluateBooleanInfixExpression(node.Operator, left, right)
+		return booleanInfixExpression(node.Operator, left, right)
 	case left.Type() == object.TypeCharacter && right.Type() == object.TypeCharacter:
-		return evaluateCharacterInfixExpression(node.Operator, left, right)
+		return characterInfixExpression(node.Operator, left, right)
 	default:
 		return object.Error("types %s and %s do not support operator %s", left.Type(), right.Type(), node.Operator)
 	}

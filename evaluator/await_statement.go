@@ -5,7 +5,7 @@ import (
 	"github.com/davidsbond/dave/object"
 )
 
-func evaluateAwaitStatement(node *ast.AwaitStatement, scope *object.Scope) object.Object {
+func awaitStatement(node *ast.AwaitStatement, scope *object.Scope) object.Object {
 	switch fn := node.Value.(type) {
 	default:
 		return object.Error("await keyword can only be used on function calls")

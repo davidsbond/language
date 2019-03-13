@@ -5,7 +5,7 @@ import (
 	"github.com/davidsbond/dave/object"
 )
 
-func evaluateIdentifier(node *ast.Identifier, scope *object.Scope) object.Object {
+func identifier(node *ast.Identifier, scope *object.Scope) object.Object {
 	// Check if a special value exists with this name
 	if value, ok := values[node.Value]; ok {
 		return value

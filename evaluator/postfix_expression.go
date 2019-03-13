@@ -6,9 +6,9 @@ import (
 	"github.com/davidsbond/dave/token"
 )
 
-func evaluatePostfixExpression(node *ast.PostfixExpression, scope *object.Scope) object.Object {
+func postfixExpression(node *ast.PostfixExpression, scope *object.Scope) object.Object {
 	val := scope.Get(node.Left.Value)
-	newVal := evaluatePostfix(node.Operator, val)
+	newVal := postfix(node.Operator, val)
 
 	if isError(newVal) {
 		return newVal
@@ -25,7 +25,7 @@ func evaluatePostfixExpression(node *ast.PostfixExpression, scope *object.Scope)
 	}
 }
 
-func evaluatePostfix(operator string, obj object.Object) object.Object {
+func postfix(operator string, obj object.Object) object.Object {
 	num, err := getNumberFromObject(obj)
 
 	if err != nil {

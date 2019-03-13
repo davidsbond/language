@@ -7,7 +7,7 @@ import (
 	"github.com/davidsbond/dave/token"
 )
 
-func evaluateBooleanInfixExpression(operator string, left, right object.Object) object.Object {
+func booleanInfixExpression(operator string, left, right object.Object) object.Object {
 	// Get the *object.Boolean instances for both the left and right objects. Handle
 	// atomic/constants appropriately.
 	trueLeft, err := getBooleanFromObject(left)

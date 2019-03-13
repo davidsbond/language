@@ -5,7 +5,7 @@ import (
 	"github.com/davidsbond/dave/object"
 )
 
-func evaluateFunctionLiteral(node *ast.FunctionLiteral, scope *object.Scope) object.Object {
+func functionLiteral(node *ast.FunctionLiteral, scope *object.Scope) object.Object {
 	lit := &object.Function{
 		Name:       node.Name,
 		Parameters: node.Parameters,

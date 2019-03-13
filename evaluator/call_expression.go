@@ -5,7 +5,7 @@ import (
 	"github.com/davidsbond/dave/object"
 )
 
-func evaluateCallExpression(node *ast.CallExpression, scope *object.Scope) object.Object {
+func callExpression(node *ast.CallExpression, scope *object.Scope) object.Object {
 	fn := Evaluate(node.Function, scope)
 
 	if isError(fn) {
@@ -24,36 +24,36 @@ func evaluateCallExpression(node *ast.CallExpression, scope *object.Scope) objec
 		args = append(args, val)
 	}
 
-	switch function := fn.(type) {
+	switch fnc := fn.(type) {
 	default:
-		return object.Error("expected function, got %s", function.Type())
+		return object.Error("expected function, got %s", fnc.Type())
 	case nil:
 		return object.Error("expected function, got nil")
 	case *object.Function:
-		if function.Async && node.Awaited {
+		if fnc.Async && node.Awaited {
 			res := make(chan object.Object, 1)
 
 			go func() {
-				res <- evaluateFunction(function, args, scope)
+				res <- function(fnc, args, scope)
 				close(res)
 			}()
 
 			return <-res
 		}
 
-		if function.Async {
-			go evaluateFunction(function, args, scope)
+		if fnc.Async {
+			go function(fnc, args, scope)
 			return NULL
 		}
 
-		return evaluateFunction(function, args, scope)
+		return function(fnc, args, scope)
 
 	case object.Builtin:
-		return function(args...)
+		return fnc(args...)
 	}
 }
 
-func evaluateFunction(fn *object.Function, args []object.Object, scope *object.Scope) object.Object {
+func function(fn *object.Function, args []object.Object, scope *object.Scope) object.Object {
 	newScope := scope.NewChildScope()
 
 	for i, param := range fn.Parameters {

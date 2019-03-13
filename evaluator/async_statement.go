@@ -5,7 +5,7 @@ import (
 	"github.com/davidsbond/dave/object"
 )
 
-func evaluateAsyncStatement(node *ast.AsyncStatement, scope *object.Scope) object.Object {
+func asyncStatement(node *ast.AsyncStatement, scope *object.Scope) object.Object {
 	val := Evaluate(node.Value, scope)
 
 	if isError(val) {

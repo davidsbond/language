@@ -8,7 +8,7 @@ import (
 	"github.com/davidsbond/dave/token"
 )
 
-func evaluatePrefixExpression(node *ast.PrefixExpression, scope *object.Scope) object.Object {
+func prefixExpression(node *ast.PrefixExpression, scope *object.Scope) object.Object {
 	right := Evaluate(node.Right, scope)
 
 	if isError(right) {
@@ -17,30 +17,30 @@ func evaluatePrefixExpression(node *ast.PrefixExpression, scope *object.Scope) o
 
 	switch node.Operator {
 	case token.BANG:
-		return evaluateBangOperatorExpression(right)
+		return bangOperatorExpression(right)
 	case token.MINUS:
-		return evaluateMinusPrefixOperatorExpression(right)
+		return minusPrefixOperatorExpression(right)
 	case token.SQRT:
-		return evaluateSqrtPrefixOperatorExpression(right)
+		return sqrtPrefixOperatorExpression(right)
 	default:
 		return object.Error("type %s does not support operator %s", right.Type(), node.Operator)
 	}
 }
 
-func evaluateSqrtPrefixOperatorExpression(right object.Object) object.Object {
+func sqrtPrefixOperatorExpression(right object.Object) object.Object {
 	switch val := right.(type) {
 	case *object.Number:
 		return &object.Number{Value: math.Sqrt(val.Value)}
 	case *object.Atomic:
-		return evaluateSqrtPrefixOperatorExpression(val.Value())
+		return sqrtPrefixOperatorExpression(val.Value())
 	case *object.Constant:
-		return evaluateSqrtPrefixOperatorExpression(val.Value)
+		return sqrtPrefixOperatorExpression(val.Value)
 	default:
 		return object.Error("type %s does not support operator '√'", right.Type())
 	}
 }
 
-func evaluateBangOperatorExpression(right object.Object) object.Object {
+func bangOperatorExpression(right object.Object) object.Object {
 	switch val := right.(type) {
 	case *object.Boolean:
 		if val == TRUE {
@@ -49,22 +49,22 @@ func evaluateBangOperatorExpression(right object.Object) object.Object {
 
 		return TRUE
 	case *object.Atomic:
-		return evaluateBangOperatorExpression(val.Value())
+		return bangOperatorExpression(val.Value())
 	case *object.Constant:
-		return evaluateBangOperatorExpression(val.Value)
+		return bangOperatorExpression(val.Value)
 	default:
 		return object.Error("type %s does not support operator '!'", right.Type())
 	}
 }
 
-func evaluateMinusPrefixOperatorExpression(right object.Object) object.Object {
+func minusPrefixOperatorExpression(right object.Object) object.Object {
 	switch val := right.(type) {
 	case *object.Number:
 		return &object.Number{Value: -val.Value}
 	case *object.Constant:
-		return evaluateMinusPrefixOperatorExpression(val.Value)
+		return minusPrefixOperatorExpression(val.Value)
 	case *object.Atomic:
-		return evaluateMinusPrefixOperatorExpression(val.Value())
+		return minusPrefixOperatorExpression(val.Value())
 	default:
 		return object.Error("type %s does not support operator '-'", right.Type())
 	}

@@ -5,7 +5,7 @@ import (
 	"github.com/davidsbond/dave/object"
 )
 
-func evaluateConstStatement(node *ast.ConstStatement, scope *object.Scope) object.Object {
+func constStatement(node *ast.ConstStatement, scope *object.Scope) object.Object {
 	val := Evaluate(node.Value, scope)
 
 	if isError(val) {
