@@ -20,6 +20,8 @@ type (
 )
 
 func TestEvaluator_Evaluate(t *testing.T) {
+	t.Parallel()
+
 	tt := []EvaluatorTest{
 		{
 			Name: "It should evaluate fibonnaci",
