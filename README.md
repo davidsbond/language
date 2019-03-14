@@ -12,6 +12,13 @@ This section assumes you have [go](https://golang.org/) 1.11+
 go get github.com/davidsbond/language
 # Build the binary
 go install github.com/davidsbond/language
+
+# Start the repl
+./language
+
+> 1 + 1
+2
+>
 ```
 
 ## Project structure
