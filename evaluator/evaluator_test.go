@@ -19,6 +19,36 @@ type (
 	}
 )
 
+func TestEvaluator_Evaluate(t *testing.T) {
+	tt := []EvaluatorTest{
+		{
+			Name: "It should evaluate fibonnaci",
+			ExpectedObject: &object.Number{
+				Value: 34,
+			},
+			Expression: `
+			func fib(n) {
+				if (n == 1) {
+					return n
+				}
+
+				if (n < 1) {
+					return n
+				}
+
+				return fib(n - 1) + fib(n - 2)
+			}
+
+			fib(9)
+			`,
+		},
+	}
+
+	for _, tc := range tt {
+		tc.Run(t)
+	}
+}
+
 func (et *EvaluatorTest) Run(t *testing.T) {
 	t.Run(et.Name, func(t *testing.T) {
 		rd := bufio.NewReader(strings.NewReader(et.Expression))
@@ -31,7 +61,6 @@ func (et *EvaluatorTest) Run(t *testing.T) {
 
 		switch expected := et.ExpectedObject.(type) {
 		default:
-
 			assertEqualObjects(t, expected, actual)
 		case *object.Hash:
 			assertEqualHashes(t, expected, actual)
