@@ -21,11 +21,11 @@ func TestEvaluator_AsyncStatement(t *testing.T) {
 					Token: token.New("add", token.IDENT, 0, 0),
 				},
 				Parameters: []*ast.Identifier{
-					&ast.Identifier{
+					{
 						Value: "a",
 						Token: token.New("a", token.IDENT, 0, 0),
 					},
-					&ast.Identifier{
+					{
 						Value: "b",
 						Token: token.New("b", token.IDENT, 0, 0),
 					},
