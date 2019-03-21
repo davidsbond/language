@@ -50,6 +50,16 @@ func TestEvaluator_CharacterInfixExpression(t *testing.T) {
 			Expression:     `'a' + "a"`,
 			ExpectedObject: &object.String{Value: "aa"},
 		},
+		{
+			Name:           "It should evaluate less than or equal to",
+			Expression:     "'a' <= 'b'",
+			ExpectedObject: &object.Boolean{Value: true},
+		},
+		{
+			Name:           "It should evaluate greater than or equal to",
+			Expression:     "'b' >= 'a'",
+			ExpectedObject: &object.Boolean{Value: true},
+		},
 	}
 
 	for _, tc := range tt {

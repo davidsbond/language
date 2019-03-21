@@ -54,6 +54,12 @@ const (
 	// GT is the token type used for the greater than symbol
 	GT = ">"
 
+	// GTEQ is the token type used for the greater than or equal to symbol
+	GTEQ = ">="
+
+	// LTEQ is the token type used for the less than or equal to symbol
+	LTEQ = "<="
+
 	// ASTERISK is the token type used for the '*' symbol.
 	ASTERISK = "*"
 
