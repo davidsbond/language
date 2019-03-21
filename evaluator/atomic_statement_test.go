@@ -3,7 +3,7 @@ package evaluator_test
 import (
 	"testing"
 
-	"github.com/davidsbond/dave/object"
+	"github.com/davidsbond/language/object"
 )
 
 func TestEvaluator_AtomicStatement(t *testing.T) {

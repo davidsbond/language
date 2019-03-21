@@ -3,8 +3,8 @@ package parser_test
 import (
 	"testing"
 
-	"github.com/davidsbond/dave/ast"
-	"github.com/davidsbond/dave/token"
+	"github.com/davidsbond/language/ast"
+	"github.com/davidsbond/language/token"
 )
 
 func TestParser_HashLiteral(t *testing.T) {

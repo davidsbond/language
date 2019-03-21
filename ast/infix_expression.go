@@ -3,7 +3,7 @@ package ast
 import (
 	"bytes"
 
-	"github.com/davidsbond/dave/token"
+	"github.com/davidsbond/language/token"
 )
 
 type (

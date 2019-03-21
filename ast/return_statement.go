@@ -3,7 +3,7 @@ package ast
 import (
 	"fmt"
 
-	"github.com/davidsbond/dave/token"
+	"github.com/davidsbond/language/token"
 )
 
 type (

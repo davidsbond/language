@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"github.com/davidsbond/dave/ast"
+	"github.com/davidsbond/language/ast"
 )
 
 func (p *Parser) parseStringLiteral() ast.Node {

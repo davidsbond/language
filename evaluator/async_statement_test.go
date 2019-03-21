@@ -3,9 +3,9 @@ package evaluator_test
 import (
 	"testing"
 
-	"github.com/davidsbond/dave/ast"
-	"github.com/davidsbond/dave/object"
-	"github.com/davidsbond/dave/token"
+	"github.com/davidsbond/language/ast"
+	"github.com/davidsbond/language/object"
+	"github.com/davidsbond/language/token"
 )
 
 func TestEvaluator_AsyncStatement(t *testing.T) {

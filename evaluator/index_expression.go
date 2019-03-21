@@ -3,8 +3,8 @@ package evaluator
 import (
 	"math"
 
-	"github.com/davidsbond/dave/ast"
-	"github.com/davidsbond/dave/object"
+	"github.com/davidsbond/language/ast"
+	"github.com/davidsbond/language/object"
 )
 
 func indexExpression(node *ast.IndexExpression, scope *object.Scope) object.Object {

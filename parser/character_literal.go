@@ -3,7 +3,7 @@ package parser
 import (
 	"unicode/utf8"
 
-	"github.com/davidsbond/dave/ast"
+	"github.com/davidsbond/language/ast"
 )
 
 func (p *Parser) parseCharacterLiteral() ast.Node {

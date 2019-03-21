@@ -1,7 +1,7 @@
 package builtin
 
 import (
-	"github.com/davidsbond/dave/object"
+	"github.com/davidsbond/language/object"
 )
 
 // Len returns the length of a given string, array or hash.

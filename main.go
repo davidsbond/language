@@ -6,11 +6,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/davidsbond/dave/evaluator"
-
-	"github.com/davidsbond/dave/lexer"
-	"github.com/davidsbond/dave/object"
-	"github.com/davidsbond/dave/parser"
+	"github.com/davidsbond/language/evaluator"
+	"github.com/davidsbond/language/lexer"
+	"github.com/davidsbond/language/object"
+	"github.com/davidsbond/language/parser"
 )
 
 func main() {

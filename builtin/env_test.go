@@ -4,8 +4,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/davidsbond/dave/builtin"
-	"github.com/davidsbond/dave/object"
+	"github.com/davidsbond/language/builtin"
+	"github.com/davidsbond/language/object"
 )
 
 func TestBuiltin_SetEnv(t *testing.T) {

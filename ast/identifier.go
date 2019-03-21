@@ -1,6 +1,6 @@
 package ast
 
-import "github.com/davidsbond/dave/token"
+import "github.com/davidsbond/language/token"
 
 type (
 	// The Identifier type represents an identifier in source code. For example, a variable

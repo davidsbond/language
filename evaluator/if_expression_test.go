@@ -3,7 +3,7 @@ package evaluator_test
 import (
 	"testing"
 
-	"github.com/davidsbond/dave/evaluator"
+	"github.com/davidsbond/language/evaluator"
 )
 
 func TestEvaluator_IfExpression(t *testing.T) {

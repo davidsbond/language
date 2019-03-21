@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/davidsbond/dave/object"
-	"github.com/davidsbond/dave/token"
+	"github.com/davidsbond/language/object"
+	"github.com/davidsbond/language/token"
 )
 
 func numberInfixExpression(operator string, left, right object.Object) object.Object {

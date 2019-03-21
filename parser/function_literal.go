@@ -1,8 +1,8 @@
 package parser
 
 import (
-	"github.com/davidsbond/dave/ast"
-	"github.com/davidsbond/dave/token"
+	"github.com/davidsbond/language/ast"
+	"github.com/davidsbond/language/token"
 )
 
 func (p *Parser) parseFunctionLiteral() ast.Node {
