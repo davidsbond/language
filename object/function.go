@@ -40,7 +40,7 @@ func (fn *Function) Clone() Object {
 func (fn *Function) String() string {
 	var out strings.Builder
 
-	out.WriteString("function ")
+	out.WriteString("func ")
 	out.WriteString(fn.Name.String())
 	out.WriteString("(")
 
@@ -48,7 +48,7 @@ func (fn *Function) String() string {
 		out.WriteString(ident.String())
 
 		if i != len(fn.Parameters)-1 {
-			out.WriteString(",")
+			out.WriteString(", ")
 		}
 	}
 

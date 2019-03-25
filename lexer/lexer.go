@@ -72,9 +72,29 @@ func (l *Lexer) NextToken() (tok *token.Token, err error) {
 			tok = token.New(token.MINUS, token.MINUS, l.line, l.column)
 		}
 	case '<':
-		tok = token.New(token.LT, token.LT, l.line, l.column)
+		var next rune
+
+		next, err = l.peekRune()
+
+		if next == '=' {
+			err = l.readRune()
+
+			tok = token.New(token.LTEQ, token.LTEQ, l.line, l.column)
+		} else {
+			tok = token.New(token.LT, token.LT, l.line, l.column)
+		}
 	case '>':
-		tok = token.New(token.GT, token.GT, l.line, l.column)
+		var next rune
+
+		next, err = l.peekRune()
+
+		if next == '=' {
+			err = l.readRune()
+
+			tok = token.New(token.GTEQ, token.GTEQ, l.line, l.column)
+		} else {
+			tok = token.New(token.GT, token.GT, l.line, l.column)
+		}
 	case '*':
 		tok = token.New(token.ASTERISK, token.ASTERISK, l.line, l.column)
 	case '%':

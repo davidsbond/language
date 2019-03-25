@@ -58,6 +58,20 @@ func numberInfixExpression(operator string, left, right object.Object) object.Ob
 		}
 
 		return FALSE
+	// 1 >= 2
+	case token.GTEQ:
+		if trueLeft.Value >= trueRight.Value {
+			return TRUE
+		}
+
+		return FALSE
+	// 1 <= 2
+	case token.LTEQ:
+		if trueLeft.Value <= trueRight.Value {
+			return TRUE
+		}
+
+		return FALSE
 	// 1 == 1
 	case token.EQUALS:
 		if trueLeft.Value == trueRight.Value {

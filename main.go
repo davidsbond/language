@@ -7,7 +7,6 @@ import (
 	"os"
 
 	"github.com/davidsbond/language/evaluator"
-
 	"github.com/davidsbond/language/lexer"
 	"github.com/davidsbond/language/object"
 	"github.com/davidsbond/language/parser"

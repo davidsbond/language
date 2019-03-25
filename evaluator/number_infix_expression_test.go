@@ -58,6 +58,16 @@ func TestEvaluator_NumberInfixExpression(t *testing.T) {
 			`,
 			ExpectedObject: &object.Number{Value: 2},
 		},
+		{
+			Name:           "It should evaluate less than or equal to",
+			Expression:     "0 <= 1",
+			ExpectedObject: &object.Boolean{Value: true},
+		},
+		{
+			Name:           "It should evaluate greater than or equal to",
+			Expression:     "1 >= 0",
+			ExpectedObject: &object.Boolean{Value: true},
+		},
 	}
 
 	for _, tc := range tt {

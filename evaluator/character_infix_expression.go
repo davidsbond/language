@@ -51,6 +51,20 @@ func characterInfixExpression(operator string, left, right object.Object) object
 		}
 
 		return FALSE
+	// 'a' >= 'b'
+	case token.GTEQ:
+		if trueLeft.Value >= trueRight.Value {
+			return TRUE
+		}
+
+		return FALSE
+	// 'a' <= 'b'
+	case token.LTEQ:
+		if trueLeft.Value <= trueRight.Value {
+			return TRUE
+		}
+
+		return FALSE
 	// 'a' == 'b'
 	case token.EQUALS:
 		if trueLeft.Value == trueRight.Value {

@@ -338,6 +338,24 @@ func TestLexer_NextToken(t *testing.T) {
 				Column:  0,
 			},
 		},
+		{
+			Expression: ">=",
+			ExpectedToken: &token.Token{
+				Literal: token.GTEQ,
+				Type:    token.GTEQ,
+				Line:    0,
+				Column:  0,
+			},
+		},
+		{
+			Expression: "<=",
+			ExpectedToken: &token.Token{
+				Literal: token.LTEQ,
+				Type:    token.LTEQ,
+				Line:    0,
+				Column:  0,
+			},
+		},
 	}
 
 	for _, tc := range tt {

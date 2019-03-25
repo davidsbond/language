@@ -155,6 +155,38 @@ func TestParser_InfixExpression(t *testing.T) {
 				},
 			},
 		},
+		{
+			Name:       "It should parse less than or equal to",
+			Expression: "2 <= 1",
+			ExpectedNode: &ast.InfixExpression{
+				Operator: token.LTEQ,
+				Token:    token.New(token.LTEQ, token.LTEQ, 0, 0),
+				Left: &ast.NumberLiteral{
+					Token: token.New("2", token.NUMBER, 0, 0),
+					Value: 2,
+				},
+				Right: &ast.NumberLiteral{
+					Token: token.New("1", token.NUMBER, 0, 0),
+					Value: 1,
+				},
+			},
+		},
+		{
+			Name:       "It should parse greater than or equal to",
+			Expression: "2 >= 1",
+			ExpectedNode: &ast.InfixExpression{
+				Operator: token.GTEQ,
+				Token:    token.New(token.GTEQ, token.GTEQ, 0, 0),
+				Left: &ast.NumberLiteral{
+					Token: token.New("2", token.NUMBER, 0, 0),
+					Value: 2,
+				},
+				Right: &ast.NumberLiteral{
+					Token: token.New("1", token.NUMBER, 0, 0),
+					Value: 1,
+				},
+			},
+		},
 	}
 
 	for _, tc := range tt {

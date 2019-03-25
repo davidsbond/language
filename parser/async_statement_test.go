@@ -26,11 +26,11 @@ func TestParser_AsyncStatement(t *testing.T) {
 						Value: "add",
 					},
 					Parameters: []*ast.Identifier{
-						&ast.Identifier{
+						{
 							Token: token.New("a", token.IDENT, 0, 0),
 							Value: "a",
 						},
-						&ast.Identifier{
+						{
 							Token: token.New("b", token.IDENT, 0, 0),
 							Value: "b",
 						},
