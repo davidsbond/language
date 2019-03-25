@@ -5,9 +5,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/davidsbond/dave/ast"
-	"github.com/davidsbond/dave/lexer"
-	"github.com/davidsbond/dave/parser"
+	"github.com/davidsbond/language/ast"
+	"github.com/davidsbond/language/lexer"
+	"github.com/davidsbond/language/parser"
 )
 
 type (

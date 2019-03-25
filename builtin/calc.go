@@ -3,7 +3,7 @@ package builtin
 import (
 	"math"
 
-	"github.com/davidsbond/dave/object"
+	"github.com/davidsbond/language/object"
 )
 
 // Sin provides the ability to calculate the sine of the first radian

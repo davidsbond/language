@@ -3,7 +3,7 @@ package ast
 import (
 	"strings"
 
-	"github.com/davidsbond/dave/token"
+	"github.com/davidsbond/language/token"
 )
 
 type (

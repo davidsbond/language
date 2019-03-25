@@ -3,8 +3,8 @@ package builtin_test
 import (
 	"testing"
 
-	"github.com/davidsbond/dave/builtin"
-	"github.com/davidsbond/dave/object"
+	"github.com/davidsbond/language/builtin"
+	"github.com/davidsbond/language/object"
 )
 
 func TestBuiltin_Type(t *testing.T) {

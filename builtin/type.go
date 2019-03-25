@@ -1,7 +1,7 @@
 package builtin
 
 import (
-	"github.com/davidsbond/dave/object"
+	"github.com/davidsbond/language/object"
 )
 
 // Type is a built-in function that returns a string representation of an

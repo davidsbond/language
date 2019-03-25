@@ -3,9 +3,9 @@ package parser_test
 import (
 	"testing"
 
-	"github.com/davidsbond/dave/token"
+	"github.com/davidsbond/language/token"
 
-	"github.com/davidsbond/dave/ast"
+	"github.com/davidsbond/language/ast"
 )
 
 func TestParser_AwaitStatement(t *testing.T) {

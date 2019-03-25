@@ -1,8 +1,8 @@
 package evaluator
 
 import (
-	"github.com/davidsbond/dave/ast"
-	"github.com/davidsbond/dave/object"
+	"github.com/davidsbond/language/ast"
+	"github.com/davidsbond/language/object"
 )
 
 func blockStatement(block *ast.BlockStatement, scope *object.Scope) object.Object {

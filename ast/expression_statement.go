@@ -1,6 +1,6 @@
 package ast
 
-import "github.com/davidsbond/dave/token"
+import "github.com/davidsbond/language/token"
 
 type (
 	// The ExpressionStatement type represents a statement in the source

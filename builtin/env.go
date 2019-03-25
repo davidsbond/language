@@ -3,7 +3,7 @@ package builtin
 import (
 	"os"
 
-	"github.com/davidsbond/dave/object"
+	"github.com/davidsbond/language/object"
 )
 
 // SetEnv sets an environment variable. The first argument is the key and second is the value. The first

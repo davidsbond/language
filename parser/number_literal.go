@@ -3,7 +3,7 @@ package parser
 import (
 	"strconv"
 
-	"github.com/davidsbond/dave/ast"
+	"github.com/davidsbond/language/ast"
 )
 
 func (p *Parser) parseNumberLiteral() ast.Node {

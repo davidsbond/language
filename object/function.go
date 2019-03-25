@@ -3,7 +3,7 @@ package object
 import (
 	"strings"
 
-	"github.com/davidsbond/dave/ast"
+	"github.com/davidsbond/language/ast"
 )
 
 const (

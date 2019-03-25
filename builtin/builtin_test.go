@@ -3,7 +3,7 @@ package builtin_test
 import (
 	"testing"
 
-	"github.com/davidsbond/dave/object"
+	"github.com/davidsbond/language/object"
 )
 
 func assertEqualObjects(t *testing.T, expected, actual object.Object) {

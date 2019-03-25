@@ -3,8 +3,8 @@ package evaluator
 import (
 	"fmt"
 
-	"github.com/davidsbond/dave/object"
-	"github.com/davidsbond/dave/token"
+	"github.com/davidsbond/language/object"
+	"github.com/davidsbond/language/token"
 )
 
 func characterInfixExpression(operator string, left, right object.Object) object.Object {

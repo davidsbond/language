@@ -3,7 +3,7 @@ package parser
 import (
 	"strings"
 
-	"github.com/davidsbond/dave/ast"
+	"github.com/davidsbond/language/ast"
 )
 
 func (p *Parser) parseComment() ast.Node {
